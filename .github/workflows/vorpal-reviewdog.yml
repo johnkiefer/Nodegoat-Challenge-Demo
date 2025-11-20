@@ -25,17 +25,17 @@ jobs:
         with:
           separator: ','
 
-      - name: Vorpal with reviewdog
-        if: github.event_name == 'pull_request' && steps.changed-files.outputs.all_changed_files != ''
+      - name: Vorpal with reviewdog (scan changed JS files in PR)
+        if: github.event_name == 'pull_request'
         uses: checkmarx/vorpal-reviewdog-github-action@v1.2.0
         with:
-          source_path: "${{ steps.changed-files.outputs.all_changed_files }}"
-          filter_mode: file
+          source_path: "NodeGoat/**/*.js"
+          filter_mode: added
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
           level: error
           fail_on_error: false
-          folders_to_ignore: "node_modules,dist,build,.git"
+          folders_to_ignore: "node_modules,dist,build"
 
       - name: Vorpal scan all NodeGoat files (on push)
         if: github.event_name == 'push'
@@ -47,4 +47,4 @@ jobs:
           reporter: github-pr-check
           level: error
           fail_on_error: false
-          folders_to_ignore: "node_modules,dist,build,.git"
+          folders_to_ignore: "node_modules,dist,build"
