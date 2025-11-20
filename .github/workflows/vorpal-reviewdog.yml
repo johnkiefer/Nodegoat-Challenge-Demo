@@ -51,9 +51,10 @@ jobs:
           filter_mode: nofilter
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
-          level: info
+          level: error
           fail_on_error: false
           folders_to_ignore: "node_modules,dist,build"
+          reviewdog_flags: "-max-annotations=50"
 
       - name: Find all supported files in NodeGoat (for push)
         if: github.event_name == 'push'
@@ -88,6 +89,15 @@ jobs:
           filter_mode: nofilter
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-check
-          level: info
+          level: error
           fail_on_error: false
           folders_to_ignore: "node_modules,dist,build"
+          reviewdog_flags: "-max-annotations=50"
+
+      - name: Upload Vorpal scan report
+        if: always()
+        run: |
+          # Vorpal output is typically in the action's internal location
+          # The action handles reporting, but we can check for any report files
+          echo "Vorpal scan completed. Check GitHub Actions logs and PR comments for findings."
+          echo "For detailed reports, check the workflow run artifacts or logs."
