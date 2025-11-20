@@ -48,13 +48,13 @@ jobs:
         uses: checkmarx/vorpal-reviewdog-github-action@v1.2.0
         with:
           source_path: "${{ steps.find-files.outputs.files }}"
-          filter_mode: nofilter
+          filter_mode: added
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
           level: error
           fail_on_error: false
           folders_to_ignore: "node_modules,dist,build"
-          reviewdog_flags: "-max-annotations=20 -filter-mode=added"
+          reviewdog_flags: "-max-annotations=10"
 
       - name: Find all supported files in NodeGoat (for push)
         if: github.event_name == 'push'
