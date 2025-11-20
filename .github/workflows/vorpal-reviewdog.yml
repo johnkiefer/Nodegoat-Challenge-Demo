@@ -45,9 +45,10 @@ jobs:
 
       - name: Vorpal with reviewdog (full scan of all NodeGoat files in PR)
         if: github.event_name == 'pull_request' && steps.find-files.outputs.files != ''
-        uses: checkmarx/vorpal-reviewdog-github-action@v1.2.0
+        uses: checkmarx/vorpal-reviewdog-github-action@main
         id: vorpal-pr
         continue-on-error: true
+        timeout-minutes: 15
         with:
           source_path: "${{ steps.find-files.outputs.files }}"
           filter_mode: nofilter
@@ -56,7 +57,7 @@ jobs:
           level: warning
           fail_on_error: false
           folders_to_ignore: "node_modules,dist,build"
-          reviewdog_flags: "-max-annotations=50 -tee -reporter=github-pr-check"
+          reviewdog_flags: "-max-annotations=50 -tee"
 
       - name: Debug Vorpal output (PR)
         if: github.event_name == 'pull_request' && always()
@@ -103,7 +104,9 @@ jobs:
 
       - name: Vorpal scan all NodeGoat files (on push)
         if: github.event_name == 'push' && steps.find-files-push.outputs.files != ''
-        uses: checkmarx/vorpal-reviewdog-github-action@v1.2.0
+        uses: checkmarx/vorpal-reviewdog-github-action@main
+        timeout-minutes: 15
+        continue-on-error: true
         with:
           source_path: "${{ steps.find-files-push.outputs.files }}"
           filter_mode: nofilter
