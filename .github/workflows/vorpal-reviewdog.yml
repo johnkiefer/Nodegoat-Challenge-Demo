@@ -48,10 +48,10 @@ jobs:
         uses: checkmarx/vorpal-reviewdog-github-action@v1.2.0
         with:
           source_path: "${{ steps.find-files.outputs.files }}"
-          filter_mode: added
+          filter_mode: nofilter
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
-          level: error
+          level: info
           fail_on_error: false
           folders_to_ignore: "node_modules,dist,build"
 
@@ -88,6 +88,6 @@ jobs:
           filter_mode: nofilter
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-check
-          level: error
+          level: info
           fail_on_error: false
           folders_to_ignore: "node_modules,dist,build"
