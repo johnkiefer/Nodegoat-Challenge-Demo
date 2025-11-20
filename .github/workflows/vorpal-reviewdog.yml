@@ -136,6 +136,9 @@ jobs:
           path: |
             result.errorformat
             /github/workspace/result.errorformat
-            **/*.errorformat
           if-no-files-found: ignore
           retention-days: 7
+          exclude-patterns: |
+            **/KICS/**
+            **/node_modules/**
+            **/.git/**
