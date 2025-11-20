@@ -163,3 +163,5 @@ Code licensed under the [Apache License v2.0.](http://www.apache.org/licenses/LI
 # Test trigger
 
 <!-- Test trigger for Vorpal scan -->
+
+<!-- Test Vorpal scan on new PR -->
