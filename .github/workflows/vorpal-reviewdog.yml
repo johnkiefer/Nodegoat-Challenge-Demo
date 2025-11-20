@@ -51,7 +51,7 @@ jobs:
           filter_mode: added
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
-          level: error
+          level: warning
           fail_on_error: false
           folders_to_ignore: "node_modules,dist,build"
           reviewdog_flags: "-max-annotations=50"
@@ -94,10 +94,15 @@ jobs:
           folders_to_ignore: "node_modules,dist,build"
           reviewdog_flags: "-max-annotations=20"
 
-      - name: Upload Vorpal scan report
+      - name: Save Vorpal scan summary
         if: always()
         run: |
-          # Vorpal output is typically in the action's internal location
-          # The action handles reporting, but we can check for any report files
-          echo "Vorpal scan completed. Check GitHub Actions logs and PR comments for findings."
-          echo "For detailed reports, check the workflow run artifacts or logs."
+          echo "## Vorpal Scan Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Scan completed. Check the following for results:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "1. **PR Comments**: Up to 50 annotations posted as PR comments" >> $GITHUB_STEP_SUMMARY
+          echo "2. **Actions Logs**: Full scan output in the workflow logs below" >> $GITHUB_STEP_SUMMARY
+          echo "3. **Step Output**: Expand the 'Vorpal with reviewdog' step to see all findings" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "📊 **Note**: If you see 'Too many results' warning, check the Actions console logs for complete results." >> $GITHUB_STEP_SUMMARY
