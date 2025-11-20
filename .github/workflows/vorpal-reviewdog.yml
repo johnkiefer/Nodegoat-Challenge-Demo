@@ -19,17 +19,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v46.0.1
-        with:
-          separator: ','
+      - name: Find JavaScript files in NodeGoat
+        id: find-js-files
+        run: |
+          # Find all .js files in NodeGoat directory (excluding node_modules)
+          JS_FILES=$(find NodeGoat -name "*.js" -not -path "*/node_modules/*" -not -path "*/dist/*" -not -path "*/build/*" | tr '\n' ',' | sed 's/,$//')
+          echo "files=$JS_FILES" >> $GITHUB_OUTPUT
+          echo "Found JavaScript files: $JS_FILES"
 
-      - name: Vorpal with reviewdog (scan changed JS files in PR)
-        if: github.event_name == 'pull_request'
+      - name: Vorpal with reviewdog (scan NodeGoat JS files in PR)
+        if: github.event_name == 'pull_request' && steps.find-js-files.outputs.files != ''
         uses: checkmarx/vorpal-reviewdog-github-action@v1.2.0
         with:
-          source_path: "NodeGoat/**/*.js"
+          source_path: "${{ steps.find-js-files.outputs.files }}"
           filter_mode: added
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
@@ -37,11 +39,20 @@ jobs:
           fail_on_error: false
           folders_to_ignore: "node_modules,dist,build"
 
-      - name: Vorpal scan all NodeGoat files (on push)
+      - name: Find JavaScript files in NodeGoat (for push)
         if: github.event_name == 'push'
+        id: find-js-files-push
+        run: |
+          # Find all .js files in NodeGoat directory (excluding node_modules)
+          JS_FILES=$(find NodeGoat -name "*.js" -not -path "*/node_modules/*" -not -path "*/dist/*" -not -path "*/build/*" | tr '\n' ',' | sed 's/,$//')
+          echo "files=$JS_FILES" >> $GITHUB_OUTPUT
+          echo "Found JavaScript files: $JS_FILES"
+
+      - name: Vorpal scan all NodeGoat files (on push)
+        if: github.event_name == 'push' && steps.find-js-files-push.outputs.files != ''
         uses: checkmarx/vorpal-reviewdog-github-action@v1.2.0
         with:
-          source_path: "NodeGoat/**/*.js"
+          source_path: "${{ steps.find-js-files-push.outputs.files }}"
           filter_mode: nofilter
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-check
