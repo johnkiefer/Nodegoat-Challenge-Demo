@@ -120,10 +120,13 @@ jobs:
             echo "✅ Found: ./result.errorformat" >> $GITHUB_STEP_SUMMARY
             echo "File size: $(wc -l < ./result.errorformat) lines" >> $GITHUB_STEP_SUMMARY
           fi
-          # List any .errorformat files
+          # List any .errorformat files (excluding problematic directories)
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### Searching for errorformat files..." >> $GITHUB_STEP_SUMMARY
-          find . -name "*.errorformat" -o -name "result.*" 2>/dev/null | head -10 || echo "No errorformat files found" >> $GITHUB_STEP_SUMMARY
+          find . -name "*.errorformat" -o -name "result.*" \
+            -not -path "*/KICS/*" \
+            -not -path "*/node_modules/*" \
+            -not -path "*/.git/*" 2>/dev/null | head -10 || echo "No errorformat files found" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### Workspace contents:" >> $GITHUB_STEP_SUMMARY
           ls -la /github/workspace/ 2>/dev/null | head -20 || echo "Cannot access /github/workspace/" >> $GITHUB_STEP_SUMMARY
