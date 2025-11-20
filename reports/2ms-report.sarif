@@ -1,0 +1,123 @@
+{
+ "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+ "version": "2.1.0",
+ "runs": [
+  {
+   "tool": {
+    "driver": {
+     "name": "2ms",
+     "semanticVersion": "v4.7.0",
+     "rules": [
+      {
+       "id": "private-key",
+       "fullDescription": {
+        "text": "Identified a Private Key, which may compromise cryptographic security and sensitive data encryption."
+       }
+      },
+      {
+       "id": "generic-api-key",
+       "fullDescription": {
+        "text": "Detected a Generic API Key, potentially exposing access to various services and sensitive operations."
+       }
+      }
+     ]
+    }
+   },
+   "results": [
+    {
+     "message": {
+      "text": "private-key has detected secret for file NodeGoat/artifacts/cert/server.key."
+     },
+     "ruleId": "private-key",
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "NodeGoat/artifacts/cert/server.key"
+        },
+        "region": {
+         "startLine": 1,
+         "startColumn": 1,
+         "endLine": 15,
+         "endColumn": 30,
+         "snippet": {
+          "text": "-----BEGIN RSA PRIVATE KEY-----\nMIICXgIBAAKBgQCfn8uP4FuHaaAPrMkcl1fNMQM5EGMT4nnNSVoaEVdiDLc6P0mC\nAZtUO9W0OjWow+TwGk3HkqoSJOA9KRMrzK7MtEKfwNgzpsHo4m+mHaPg5DUyicnU\n/hfUDvjGcHvTQjW8O4/chtMVl2h7P8QtPi9QDcWqxmEXCLqTB6BZXrVkjQIDAQAB\nAoGAEfIdKKfIooi1fg2m7pf1PxRrkFbPTMUBfJrqjlO0x0k2sE29LeiQVgAEHqcM\nsVSUwIm0hONwS2np6/ZaOWphnGSRt5r0FoHSt8AEakQjh5Oajkn7xw+/IxwFhzSa\nfMPkG/xbAlo0zTGGLWtHa0oLhEpvZ/gQ/nk48iFVz+YZ5gECQQDNzGeWyX1FKbNF\n8wUzZyBQd7e9UyDSaSCj1x9vWhK0tI6Oyl/p85Izh48gHTKlGjCKOe8ktJQtudJ3\nxq9nApZ9AkEAxo/srNkEARmu+/W9P16IvM3QQJQhkF23Mz1WC1uFIDyG4iyng+Le\nnmkoqwT6jA9YArj06Mw/ylh4fcjxi4KTUQJBALWXO4CN4f95QDrkqR4mTRkzyelA\nxKFlKevoElDLBd51w6SzZdalmcfmQaBwoxOT/Gi7ngyhWm7OnKwboQIgAnECQQCY\nH/gxzOoWdbjsbK8a97BHBl/AujykwEf1R86+UNXDhtvIOHH2xz/LmcGAlQXnfHHv\nVAi+uo08118o72Svf9ChAkEApRCZgczlNNQpvEsWTUBmNAHqj9hgmLTrJv4ywsPK\nkTwqg6U9lF+NaLWVfvSIb1LY+M63juJHafAGKQvH+/di+g==\n-----END RSA PRIVATE KEY-----",
+          "properties": {
+           "lineContent": "-----BEGIN RSA PRIVATE KEY-----\nMIICXgIBAAKBgQCfn8uP4FuHaaAPrMkcl1fNMQM5EGMT4nnNSVoaEVdiDLc6P0mC\nAZtUO9W0OjWow+TwGk3HkqoSJOA9KRMrzK7MtEKfwNgzpsHo4m+mHaPg5DUyicnU\n/hfUDvjGcHvTQjW8O4/chtMVl2h7P8QtPi9QDcWqxmEXCLqTB6BZXrVkjQIDAQAB\nAoGAEfIdKKfIooi1fg2m7pf1PxRrkFbPTMUBfJrqjlO0x0k2sE29LeiQVgAEHqcM\nsVSUwIm0hONwS2np6/ZaOWphnGSRt5r0FoHSt8AEakQjh5Oajkn7xw+/IxwFhzSa\nfMPkG/xbAlo0zTGGLWtHa0oLhEpvZ/gQ/nk48iFVz+YZ5gECQQDNzGeWyX1FKbNF\n8wUzZyBQd7e9UyDSaSCj1x9vWhK0tI6Oyl/p85Izh48gHTKlGjCKOe8ktJQtudJ3\nxq9nApZ9AkEAxo/srNkEARmu+/W9P16IvM3QQJQhkF23Mz1WC1uFIDyG4iyng+Le\nnmkoqwT6jA9YArj06Mw/ylh4fcjxi4KTUQJBALWXO4CN4f95QDrkqR4mTRkzyelA\nxKFlKevoElDLBd51w6SzZdalmcfmQaBwoxOT/Gi7ngyhWm7OnKwboQIgAnECQQCY\nH/gxzOoWdbjsbK8a97BHBl/AujykwEf1R86+UNXDhtvIOHH2xz/LmcGAlQXnfHHv\nVAi+uo08118o72Svf9ChAkEApRCZgczlNNQpvEsWTUBmNAHqj9hgmLTrJv4ywsPK\nkTwqg6U9lF+NaLWVfvSIb1LY+M63juJHafAGKQvH+/di+g==\n-----END RSA PRIVATE KEY-----"
+          }
+         }
+        }
+       }
+      }
+     ],
+     "properties": {
+      "cvssScore": 8.2,
+      "validationStatus": ""
+     }
+    },
+    {
+     "message": {
+      "text": "generic-api-key has detected secret for file NodeGoat/config/env/development.js."
+     },
+     "ruleId": "generic-api-key",
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "NodeGoat/config/env/development.js"
+        },
+        "region": {
+         "startLine": 6,
+         "startColumn": 4,
+         "endLine": 6,
+         "endColumn": 42,
+         "snippet": {
+          "text": "v9dn0balpqas1pcc281tn5ood1",
+          "properties": {
+           "lineContent": "zapApiKey: \"v9dn0balpqas1pcc281tn5ood1\","
+          }
+         }
+        }
+       }
+      }
+     ],
+     "properties": {
+      "cvssScore": 8.2,
+      "validationStatus": ""
+     }
+    },
+    {
+     "message": {
+      "text": "generic-api-key has detected secret for file NodeGoat/config/env/test.js."
+     },
+     "ruleId": "generic-api-key",
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "NodeGoat/config/env/test.js"
+        },
+        "region": {
+         "startLine": 6,
+         "startColumn": 4,
+         "endLine": 6,
+         "endColumn": 42,
+         "snippet": {
+          "text": "v9dn0balpqas1pcc281tn5ood1",
+          "properties": {
+           "lineContent": "zapApiKey: \"v9dn0balpqas1pcc281tn5ood1\","
+          }
+         }
+        }
+       }
+      }
+     ],
+     "properties": {
+      "cvssScore": 8.2,
+      "validationStatus": ""
+     }
+    }
+   ]
+  }
+ ]
+}

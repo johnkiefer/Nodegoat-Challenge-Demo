@@ -1,0 +1,36 @@
+{
+ "totalItemsScanned": 7,
+ "totalSecretsFound": 2,
+ "results": {
+  "532613916fc8473f1ca9789e8c141b30a9a85c45": [
+   {
+    "id": "532613916fc8473f1ca9789e8c141b30a9a85c45",
+    "source": "cfngoat/cfngoat.yaml",
+    "ruleId": "generic-api-key",
+    "startLine": 70,
+    "endLine": 70,
+    "lineContent": "          export AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMAAAKEY",
+    "startColumn": 18,
+    "endColumn": 79,
+    "value": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMAAAKEY",
+    "ruleDescription": "Detected a Generic API Key, potentially exposing access to various services and sensitive operations.",
+    "cvssScore": 8.2
+   }
+  ],
+  "e162650d433fb0003f4879ef97ccc845f7195025": [
+   {
+    "id": "e162650d433fb0003f4879ef97ccc845f7195025",
+    "source": "cfngoat/cfngoat.yaml",
+    "ruleId": "aws-access-token",
+    "startLine": 69,
+    "endLine": 69,
+    "lineContent": "          export AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMAAA",
+    "startColumn": 36,
+    "endColumn": 55,
+    "value": "AKIAIOSFODNN7EXAMAAA",
+    "ruleDescription": "Identified a pattern that may indicate AWS credentials, risking unauthorized cloud resource access and data breaches on AWS platforms.",
+    "cvssScore": 10
+   }
+  ]
+ }
+}

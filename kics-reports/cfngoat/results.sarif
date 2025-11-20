@@ -1,0 +1,2874 @@
+{
+	"$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+	"version": "2.1.0",
+	"runs": [
+		{
+			"tool": {
+				"driver": {
+					"name": "KICS",
+					"version": "1.5.1",
+					"fullName": "Keeping Infrastructure as Code Secure",
+					"informationUri": "https://www.kics.io/",
+					"rules": [
+						{
+							"id": "ffee2785-c347-451e-89f3-11aeb08e5c84",
+							"name": "CMK Unencrypted Storage",
+							"shortDescription": {
+								"text": "CMK Unencrypted Storage"
+							},
+							"fullDescription": {
+								"text": "Ensure that storage is encrypted by KMS on instances that, based on their name, might host a database. "
+							},
+							"defaultConfiguration": {
+								"level": "error"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT006",
+										"index": 14,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "de38e1d5-54cb-4111-a868-6f7722695007",
+							"name": "DB Instance Publicly Accessible",
+							"shortDescription": {
+								"text": "DB Instance Publicly Accessible"
+							},
+							"fullDescription": {
+								"text": "RDS must not be defined with public interface, which means the attribute 'PubliclyAccessible' must be set to false."
+							},
+							"defaultConfiguration": {
+								"level": "error"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT007",
+										"index": 1,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "9564406d-e761-4e61-b8d7-5926e3ab8e79",
+							"name": "DB Security Group with Public Scope",
+							"shortDescription": {
+								"text": "DB Security Group with Public Scope"
+							},
+							"fullDescription": {
+								"text": "The IP address in a DB Security Group must not be '0.0.0.0/0' (IPv4) or '::/0' (IPv6)."
+							},
+							"defaultConfiguration": {
+								"level": "error"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT009",
+										"index": 12,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "ddfc4eaa-af23-409f-b96c-bf5c45dc4daa",
+							"name": "HTTP Port Open",
+							"shortDescription": {
+								"text": "HTTP Port Open"
+							},
+							"fullDescription": {
+								"text": "The HTTP port is open in a Security Group"
+							},
+							"defaultConfiguration": {
+								"level": "error"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT009",
+										"index": 12,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "9fcd0a0a-9b6f-4670-a215-d94e6bf3f184",
+							"name": "IAM Database Auth Not Enabled",
+							"shortDescription": {
+								"text": "IAM Database Auth Not Enabled"
+							},
+							"fullDescription": {
+								"text": "IAM Database Auth Enabled must be configured to true"
+							},
+							"defaultConfiguration": {
+								"level": "error"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-enableiamdatabaseauthentication",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT006",
+										"index": 14,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "76c0bcde-903d-456e-ac13-e58c34987852",
+							"name": "Passwords And Secrets - AWS Access Key",
+							"shortDescription": {
+								"text": "Passwords And Secrets - AWS Access Key"
+							},
+							"fullDescription": {
+								"text": "Query to find passwords and secrets in infrastructure code."
+							},
+							"defaultConfiguration": {
+								"level": "error"
+							},
+							"helpUri": "https://kics.io/",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT012",
+										"index": 3,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "83ab47ff-381d-48cd-bac5-fb32222f54af",
+							"name": "Passwords And Secrets - AWS Secret Key",
+							"shortDescription": {
+								"text": "Passwords And Secrets - AWS Secret Key"
+							},
+							"fullDescription": {
+								"text": "Query to find passwords and secrets in infrastructure code."
+							},
+							"defaultConfiguration": {
+								"level": "error"
+							},
+							"helpUri": "https://kics.io/",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT012",
+										"index": 3,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "5beacce3-4020-4a3d-9e1d-a36f953df630",
+							"name": "RDS Storage Not Encrypted",
+							"shortDescription": {
+								"text": "RDS Storage Not Encrypted"
+							},
+							"fullDescription": {
+								"text": "AWS RDS DB Instance should be encrypted"
+							},
+							"defaultConfiguration": {
+								"level": "error"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT006",
+										"index": 14,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "219f4c95-aa50-44e0-97de-cf71f4641170",
+							"name": "S3 Bucket ACL Allows Read to All Users",
+							"shortDescription": {
+								"text": "S3 Bucket ACL Allows Read to All Users"
+							},
+							"fullDescription": {
+								"text": "S3 Buckets sould not be readable and writable to all users"
+							},
+							"defaultConfiguration": {
+								"level": "error"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT001",
+										"index": 10,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "64ab651b-f5b2-4af0-8c89-ddd03c4d0e61",
+							"name": "S3 Bucket SSE Disabled",
+							"shortDescription": {
+								"text": "S3 Bucket SSE Disabled"
+							},
+							"fullDescription": {
+								"text": "If algorithm is AES256 then the master key is null, empty or undefined, otherwise the master key is required"
+							},
+							"defaultConfiguration": {
+								"level": "error"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-serversideencryptionbydefault.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT006",
+										"index": 14,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "38c64e76-c71e-4d92-a337-60174d1de1c9",
+							"name": "S3 Bucket Without SSL In Write Actions",
+							"shortDescription": {
+								"text": "S3 Bucket Without SSL In Write Actions"
+							},
+							"fullDescription": {
+								"text": "S3 Buckets should enforce encryption of data transfers using Secure Sockets Layer (SSL)"
+							},
+							"defaultConfiguration": {
+								"level": "error"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT006",
+										"index": 14,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "b2e8752c-3497-4255-98d2-e4ae5b46bbf5",
+							"name": "S3 Bucket Without Server-side-encryption",
+							"shortDescription": {
+								"text": "S3 Bucket Without Server-side-encryption"
+							},
+							"fullDescription": {
+								"text": "S3 Buckets should have server-side encryption at rest enabled to protect sensitive data"
+							},
+							"defaultConfiguration": {
+								"level": "error"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AmazonS3/latest/user-guide/default-bucket-encryption.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT006",
+										"index": 14,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "90501b1b-cded-4cc1-9e8b-206b85cda317",
+							"name": "S3 Static Website Host Enabled",
+							"shortDescription": {
+								"text": "S3 Static Website Host Enabled"
+							},
+							"fullDescription": {
+								"text": "It's dangerous disabling a block public access settings in bucket or writing a bucket policy that grants public read access"
+							},
+							"defaultConfiguration": {
+								"level": "error"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-publicaccessblockconfiguration.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT007",
+										"index": 1,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "6e856af2-62d7-4ba2-adc1-73b62cef9cc1",
+							"name": "Security Group With Unrestricted Access To SSH",
+							"shortDescription": {
+								"text": "Security Group With Unrestricted Access To SSH"
+							},
+							"fullDescription": {
+								"text": "Security Groups allows all traffic for SSH (port:22)"
+							},
+							"defaultConfiguration": {
+								"level": "error"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT009",
+										"index": 12,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "cdbb0467-2957-4a77-9992-7b55b29df7b7",
+							"name": "Security Groups With Exposed Admin Ports",
+							"shortDescription": {
+								"text": "Security Groups With Exposed Admin Ports"
+							},
+							"fullDescription": {
+								"text": "Security Groups should not have ports open in (20, 21, 22, 23, 115, 137, 138, 139, 2049, 3389)"
+							},
+							"defaultConfiguration": {
+								"level": "error"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT009",
+										"index": 12,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "f0104061-8bfc-4b45-8a7d-630eb502f281",
+							"name": "Automatic Minor Upgrades Disabled",
+							"shortDescription": {
+								"text": "Automatic Minor Upgrades Disabled"
+							},
+							"fullDescription": {
+								"text": "AWS RDS should have automatic minor upgrades enabled, which means the attribute 'AutoMinorVersionUpgrade' must be set to true."
+							},
+							"defaultConfiguration": {
+								"level": "warning"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT004",
+										"index": 5,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "80b7ac3f-d2b7-4577-9b10-df7913497162",
+							"name": "EBS Volume Encryption Disabled",
+							"shortDescription": {
+								"text": "EBS Volume Encryption Disabled"
+							},
+							"fullDescription": {
+								"text": "EBS volumes should be encrypted"
+							},
+							"defaultConfiguration": {
+								"level": "warning"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ebs-volume.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT006",
+										"index": 14,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "b7063015-6c31-4658-a8e7-14f98f37fd42",
+							"name": "EBS Volume Without KmsKeyId",
+							"shortDescription": {
+								"text": "EBS Volume Without KmsKeyId"
+							},
+							"fullDescription": {
+								"text": "EBS Volume should specify a KmsKeyId value"
+							},
+							"defaultConfiguration": {
+								"level": "warning"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ebs-volume.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT012",
+										"index": 3,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "f914357d-8386-4d56-9ba6-456e5723f9a6",
+							"name": "EC2 Instance Has No IAM Role",
+							"shortDescription": {
+								"text": "EC2 Instance Has No IAM Role"
+							},
+							"fullDescription": {
+								"text": "Check if an EC2 instance refers to an IAM profile, which represents an IAM Role."
+							},
+							"defaultConfiguration": {
+								"level": "warning"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT001",
+										"index": 10,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "b3de4e4c-14be-4159-b99d-9ad194365e4c",
+							"name": "EC2 Instance Has Public IP",
+							"shortDescription": {
+								"text": "EC2 Instance Has Public IP"
+							},
+							"fullDescription": {
+								"text": "EC2 Subnet should not have MapPublicIpOnLaunch set to true"
+							},
+							"defaultConfiguration": {
+								"level": "warning"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet.html#cfn-ec2-subnet-mappubliciponlaunch",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT007",
+										"index": 1,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "a964d6e3-8e1e-4d93-8120-61fa640dd55a",
+							"name": "IAM User Without Password Reset",
+							"shortDescription": {
+								"text": "IAM User Without Password Reset"
+							},
+							"fullDescription": {
+								"text": "IAM User Login Profile should exist and have PasswordResetRequired property set to true"
+							},
+							"defaultConfiguration": {
+								"level": "warning"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-user-loginprofile.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT004",
+										"index": 5,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "8a6d36cd-0bc6-42b7-92c4-67acc8576861",
+							"name": "Instance With No VPC",
+							"shortDescription": {
+								"text": "Instance With No VPC"
+							},
+							"fullDescription": {
+								"text": "EC2 Instances should be configured under a VPC network. AWS VPCs provide the controls to facilitate a formal process for approving and testing all network connections and changes to the firewall and router configurations."
+							},
+							"defaultConfiguration": {
+								"level": "warning"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-vpc.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT007",
+										"index": 1,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "235ca980-eb71-48f4-9030-df0c371029eb",
+							"name": "KMS Key Rotation Disabled",
+							"shortDescription": {
+								"text": "KMS Key Rotation Disabled"
+							},
+							"fullDescription": {
+								"text": "EnableKeyRotation should not be false or undefined"
+							},
+							"defaultConfiguration": {
+								"level": "warning"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kms-key.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT006",
+										"index": 14,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "e649a218-d099-4550-86a4-1231e1fcb60d",
+							"name": "Low RDS Backup Retention Period",
+							"shortDescription": {
+								"text": "Low RDS Backup Retention Period"
+							},
+							"fullDescription": {
+								"text": "AWS RDS backup retention policy should be at least 7 days"
+							},
+							"defaultConfiguration": {
+								"level": "warning"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT003",
+										"index": 13,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "2b1d4935-9acf-48a7-8466-10d18bf51a69",
+							"name": "RDS Multi-AZ Deployment Disabled",
+							"shortDescription": {
+								"text": "RDS Multi-AZ Deployment Disabled"
+							},
+							"fullDescription": {
+								"text": "AWS RDS Instance should have a multi-az deployment"
+							},
+							"defaultConfiguration": {
+								"level": "warning"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT003",
+										"index": 13,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "8c415f6f-7b90-4a27-a44a-51047e1506f9",
+							"name": "RDS With Backup Disabled",
+							"shortDescription": {
+								"text": "RDS With Backup Disabled"
+							},
+							"fullDescription": {
+								"text": "Make sure the AWS RDS configuration has automatic backup configured. If the retention period is equal to 0 there is no backup"
+							},
+							"defaultConfiguration": {
+								"level": "warning"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT003",
+										"index": 13,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "4f0908b9-eb66-433f-9145-134274e1e944",
+							"name": "RouterTable with Default Routing",
+							"shortDescription": {
+								"text": "RouterTable with Default Routing"
+							},
+							"fullDescription": {
+								"text": "NAT gateways are recommended, and not the default route which permits all traffic, in Route Tables."
+							},
+							"defaultConfiguration": {
+								"level": "warning"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route-table.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT008",
+										"index": 7,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "37fa8188-738b-42c8-bf82-6334ea567738",
+							"name": "S3 Bucket Should Have Bucket Policy",
+							"shortDescription": {
+								"text": "S3 Bucket Should Have Bucket Policy"
+							},
+							"fullDescription": {
+								"text": "Checks if S3 Bucket has the same name as a Bucket Policy, if it has, S3 Bucket has a Bucket Policy associated"
+							},
+							"defaultConfiguration": {
+								"level": "warning"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT008",
+										"index": 7,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "a227ec01-f97a-4084-91a4-47b350c1db54",
+							"name": "S3 Bucket Without Versioning",
+							"shortDescription": {
+								"text": "S3 Bucket Without Versioning"
+							},
+							"fullDescription": {
+								"text": "S3 bucket should have versioning enabled"
+							},
+							"defaultConfiguration": {
+								"level": "warning"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT010",
+										"index": 8,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "4a1e6b34-1008-4e61-a5f2-1f7c276f8d14",
+							"name": "Unrestricted Security Group Ingress",
+							"shortDescription": {
+								"text": "Unrestricted Security Group Ingress"
+							},
+							"fullDescription": {
+								"text": "AWS Security Group Ingress CIDR should not be open to the world"
+							},
+							"defaultConfiguration": {
+								"level": "warning"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group-ingress.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT009",
+										"index": 12,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "3e293410-d5b8-411f-85fd-7d26294f20c9",
+							"name": "VPC Without Network Firewall",
+							"shortDescription": {
+								"text": "VPC Without Network Firewall"
+							},
+							"fullDescription": {
+								"text": "VPC should have a Network Firewall associated"
+							},
+							"defaultConfiguration": {
+								"level": "warning"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkfirewall-firewall.html#cfn-networkfirewall-firewall-vpcid",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT009",
+										"index": 12,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "06933df4-0ea7-461c-b9b5-104d27390e0e",
+							"name": "IAM User With No Group",
+							"shortDescription": {
+								"text": "IAM User With No Group"
+							},
+							"fullDescription": {
+								"text": "A IAM user should belong to a group"
+							},
+							"defaultConfiguration": {
+								"level": "note"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/quickref-iam.html#scenario-iam-policy",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT001",
+										"index": 10,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "c2eae442-d3ba-4cb1-84ca-1db4f80eae3d",
+							"name": "Lambda Function Without Dead Letter Queue",
+							"shortDescription": {
+								"text": "Lambda Function Without Dead Letter Queue"
+							},
+							"fullDescription": {
+								"text": "AWS Lambda Function should be configured for a Dead Letter Queue(DLQ)"
+							},
+							"defaultConfiguration": {
+								"level": "note"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-function.html#cfn-lambda-function-deadletterconfig",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT007",
+										"index": 1,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "9488c451-074e-4cd3-aee3-7db6104f542c",
+							"name": "Lambda Functions Without X-Ray Tracing",
+							"shortDescription": {
+								"text": "Lambda Functions Without X-Ray Tracing"
+							},
+							"fullDescription": {
+								"text": "AWS Lambda functions should have TracingConfig enabled. For this, property 'tracingConfig.mode' should have the value 'Active'"
+							},
+							"defaultConfiguration": {
+								"level": "note"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-lambda-function-tracingconfig.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT010",
+										"index": 8,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "2c161e58-cb52-454f-abea-6470c37b5e6e",
+							"name": "RDS With Deletion Protection Disabled",
+							"shortDescription": {
+								"text": "RDS With Deletion Protection Disabled"
+							},
+							"fullDescription": {
+								"text": "RDS DBInstance should have deletion protection set to true"
+							},
+							"defaultConfiguration": {
+								"level": "note"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-deletionprotection",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT003",
+										"index": 13,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "4552b71f-0a2a-4bc4-92dd-ed7ec1b4674c",
+							"name": "S3 Bucket Logging Disabled",
+							"shortDescription": {
+								"text": "S3 Bucket Logging Disabled"
+							},
+							"fullDescription": {
+								"text": "Server Access Logging must be enabled on S3 Buckets so that all changes are logged and trackable"
+							},
+							"defaultConfiguration": {
+								"level": "note"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-loggingconfig",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT010",
+										"index": 8,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "5e6c9c68-8a82-408e-8749-ddad78cbb9c5",
+							"name": "Security Group Rule Without Description",
+							"shortDescription": {
+								"text": "Security Group Rule Without Description"
+							},
+							"fullDescription": {
+								"text": "AWS Security Group Rule should have description defined"
+							},
+							"defaultConfiguration": {
+								"level": "note"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT004",
+										"index": 5,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "ad7444cf-817a-4765-a79e-2145f7981faf",
+							"name": "Shield Advanced Not In Use",
+							"shortDescription": {
+								"text": "Shield Advanced Not In Use"
+							},
+							"fullDescription": {
+								"text": "AWS Shield Advanced should be used for Amazon Route 53 hosted zone, AWS Global Accelerator accelerator, Elastic IP Address, Elastic Load Balancing, and Amazon CloudFront Distribution to protect these resources against robust DDoS attacks"
+							},
+							"defaultConfiguration": {
+								"level": "note"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-fms-policy.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT009",
+										"index": 12,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "f6d299d2-21eb-41cc-b1e1-fe12d857500b",
+							"name": "VPC FlowLogs Disabled",
+							"shortDescription": {
+								"text": "VPC FlowLogs Disabled"
+							},
+							"fullDescription": {
+								"text": "VPC hasn't got any FlowLog associated"
+							},
+							"defaultConfiguration": {
+								"level": "note"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-flowlog.html",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT010",
+										"index": 8,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": "8dd0ff1f-0da4-48df-9bb3-7f338ae36a40",
+							"name": "EC2 Not EBS Optimized",
+							"shortDescription": {
+								"text": "EC2 Not EBS Optimized"
+							},
+							"fullDescription": {
+								"text": "It's considered a best practice for an EC2 instance to use an EBS optimized instance. This provides the best performance for your EBS volumes by minimizing contention between Amazon EBS I/O and other traffic from your instance"
+							},
+							"defaultConfiguration": {
+								"level": "none"
+							},
+							"helpUri": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html#cfn-ec2-instance-ebsoptimized",
+							"relationships": [
+								{
+									"target": {
+										"id": "CAT004",
+										"index": 5,
+										"toolComponent": {
+											"name": "Categories",
+											"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+											"index": 0
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			},
+			"results": [
+				{
+					"ruleId": "ffee2785-c347-451e-89f3-11aeb08e5c84",
+					"ruleIndex": 0,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.DefaultDB.Properties.StorageEncrypted is false"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 488
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "ffee2785-c347-451e-89f3-11aeb08e5c84",
+					"ruleIndex": 0,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.DefaultDB.Properties.KmsKeyId is undefined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 471
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "de38e1d5-54cb-4111-a868-6f7722695007",
+					"ruleIndex": 1,
+					"kind": "fail",
+					"message": {
+						"text": "'Resources.DefaultDB.Properties.PubliclyAccessible' is set to true"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 490
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "9564406d-e761-4e61-b8d7-5926e3ab8e79",
+					"ruleIndex": 2,
+					"kind": "fail",
+					"message": {
+						"text": "'Resources.WebNodeSG.Properties.SecurityGroupIngress' is '0.0.0.0/0'."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 118
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "ddfc4eaa-af23-409f-b96c-bf5c45dc4daa",
+					"ruleIndex": 3,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.WebNodeSG.Properties.SecurityGroupIngress[0] opens the HTTP port (80)"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 118
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "9fcd0a0a-9b6f-4670-a215-d94e6bf3f184",
+					"ruleIndex": 4,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.DefaultDB.Properties.EnableIAMDatabaseAuthentication is undefined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 471
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "76c0bcde-903d-456e-ac13-e58c34987852",
+					"ruleIndex": 5,
+					"kind": "fail",
+					"message": {
+						"text": "'          export AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMAAA' contains a secret"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 69
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "83ab47ff-381d-48cd-bac5-fb32222f54af",
+					"ruleIndex": 6,
+					"kind": "fail",
+					"message": {
+						"text": "'          export AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMAAAKEY' contains a secret"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 70
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "5beacce3-4020-4a3d-9e1d-a36f953df630",
+					"ruleIndex": 7,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.DefaultDB.Properties.StorageEncrypted is set to false"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 488
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "219f4c95-aa50-44e0-97de-cf71f4641170",
+					"ruleIndex": 8,
+					"kind": "fail",
+					"message": {
+						"text": "S3 bucket 'DataBucket' has ACL set to 'PublicRead'"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 923
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "64ab651b-f5b2-4af0-8c89-ddd03c4d0e61",
+					"ruleIndex": 9,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.DataScienceBucket.Properties.BucketEncryption is undefined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 1003
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "64ab651b-f5b2-4af0-8c89-ddd03c4d0e61",
+					"ruleIndex": 9,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.FinancialsBucket.Properties.BucketEncryption is undefined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 949
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "64ab651b-f5b2-4af0-8c89-ddd03c4d0e61",
+					"ruleIndex": 9,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.OperationsBucket.Properties.BucketEncryption is undefined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 975
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "64ab651b-f5b2-4af0-8c89-ddd03c4d0e61",
+					"ruleIndex": 9,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.DataBucket.Properties.BucketEncryption is undefined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 921
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "38c64e76-c71e-4d92-a337-60174d1de1c9",
+					"ruleIndex": 10,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.LogsBucket bucket doesn't have a policy"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 1030
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "38c64e76-c71e-4d92-a337-60174d1de1c9",
+					"ruleIndex": 10,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.DataScienceBucket bucket doesn't have a policy"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 999
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "38c64e76-c71e-4d92-a337-60174d1de1c9",
+					"ruleIndex": 10,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.DataBucket bucket doesn't have a policy"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 917
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "38c64e76-c71e-4d92-a337-60174d1de1c9",
+					"ruleIndex": 10,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.FinancialsBucket bucket doesn't have a policy"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 945
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "38c64e76-c71e-4d92-a337-60174d1de1c9",
+					"ruleIndex": 10,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.OperationsBucket bucket doesn't have a policy"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 971
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "b2e8752c-3497-4255-98d2-e4ae5b46bbf5",
+					"ruleIndex": 11,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.DataBucket.Properties.BucketEncryption.ServerSideEncryptionConfiguration is undefined or empty"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 921
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "b2e8752c-3497-4255-98d2-e4ae5b46bbf5",
+					"ruleIndex": 11,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.OperationsBucket.Properties.BucketEncryption.ServerSideEncryptionConfiguration is undefined or empty"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 975
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "b2e8752c-3497-4255-98d2-e4ae5b46bbf5",
+					"ruleIndex": 11,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.DataScienceBucket.Properties.BucketEncryption.ServerSideEncryptionConfiguration is undefined or empty"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 1003
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "b2e8752c-3497-4255-98d2-e4ae5b46bbf5",
+					"ruleIndex": 11,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.FinancialsBucket.Properties.BucketEncryption.ServerSideEncryptionConfiguration is undefined or empty"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 949
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "90501b1b-cded-4cc1-9e8b-206b85cda317",
+					"ruleIndex": 12,
+					"kind": "fail",
+					"message": {
+						"text": "'Resources.LogsBucket.Properties.WebsiteConfiguration' or 'Resources.%!s(MISSING).Properties.AccessControl' are defined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 1034
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "90501b1b-cded-4cc1-9e8b-206b85cda317",
+					"ruleIndex": 12,
+					"kind": "fail",
+					"message": {
+						"text": "'Resources.DataBucket.Properties.WebsiteConfiguration' or 'Resources.%!s(MISSING).Properties.AccessControl' are defined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 921
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "90501b1b-cded-4cc1-9e8b-206b85cda317",
+					"ruleIndex": 12,
+					"kind": "fail",
+					"message": {
+						"text": "'Resources.DataScienceBucket.Properties.WebsiteConfiguration' or 'Resources.%!s(MISSING).Properties.AccessControl' are defined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 1003
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "90501b1b-cded-4cc1-9e8b-206b85cda317",
+					"ruleIndex": 12,
+					"kind": "fail",
+					"message": {
+						"text": "'Resources.OperationsBucket.Properties.WebsiteConfiguration' or 'Resources.%!s(MISSING).Properties.AccessControl' are defined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 975
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "90501b1b-cded-4cc1-9e8b-206b85cda317",
+					"ruleIndex": 12,
+					"kind": "fail",
+					"message": {
+						"text": "'Resources.FinancialsBucket.Properties.WebsiteConfiguration' or 'Resources.%!s(MISSING).Properties.AccessControl' are defined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 949
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "6e856af2-62d7-4ba2-adc1-73b62cef9cc1",
+					"ruleIndex": 13,
+					"kind": "fail",
+					"message": {
+						"text": "One of the Resources.WebNodeSG.Properties.SecurityGroupIngress has port 22"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 118
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "cdbb0467-2957-4a77-9992-7b55b29df7b7",
+					"ruleIndex": 14,
+					"kind": "fail",
+					"message": {
+						"text": "One of the Resources.WebNodeSG.Properties.SecurityGroupIngress has a too exposed port (20,21,22,23,115,137,138,2049,3389)"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 118
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "f0104061-8bfc-4b45-8a7d-630eb502f281",
+					"ruleIndex": 15,
+					"kind": "fail",
+					"message": {
+						"text": "'Resources.DefaultDB.Properties.AutoMinorVersionUpgrade' is undefined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 471
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "80b7ac3f-d2b7-4577-9b10-df7913497162",
+					"ruleIndex": 16,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.WebHostStorage.Properties.Encrypted is undefined or null"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 76
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "b7063015-6c31-4658-a8e7-14f98f37fd42",
+					"ruleIndex": 17,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.WebHostStorage.Properties.KmsKeyId is undefined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 76
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "f914357d-8386-4d56-9ba6-456e5723f9a6",
+					"ruleIndex": 18,
+					"kind": "fail",
+					"message": {
+						"text": "'Resources.EC2Instance.Properties.IamInstanceProfile' is undefined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 33
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "b3de4e4c-14be-4159-b99d-9ad194365e4c",
+					"ruleIndex": 19,
+					"kind": "fail",
+					"message": {
+						"text": "'Resources.WebSubnet.Properties.MapPublicIpOnLaunch' is true"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 182
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "b3de4e4c-14be-4159-b99d-9ad194365e4c",
+					"ruleIndex": 19,
+					"kind": "fail",
+					"message": {
+						"text": "'Resources.WebSubnet2.Properties.MapPublicIpOnLaunch' is true"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 211
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "a964d6e3-8e1e-4d93-8120-61fa640dd55a",
+					"ruleIndex": 20,
+					"kind": "fail",
+					"message": {
+						"text": "'Resources.User.Properties' does not include LoginProfile"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 379
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "8a6d36cd-0bc6-42b7-92c4-67acc8576861",
+					"ruleIndex": 21,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.EC2Instance.Properties.NetworkInterfaces is undefined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 33
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "8a6d36cd-0bc6-42b7-92c4-67acc8576861",
+					"ruleIndex": 21,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.DBAppInstance.Properties.NetworkInterfaces is undefined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 692
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "235ca980-eb71-48f4-9030-df0c371029eb",
+					"ruleIndex": 22,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.LogsKey.Properties.EnableKeyRotation is undefined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 429
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "e649a218-d099-4550-86a4-1231e1fcb60d",
+					"ruleIndex": 23,
+					"kind": "fail",
+					"message": {
+						"text": "The RDS DBCluster 'DefaultDB' resource has backup retention period of '%!s(int=0)' which is less than the minimum of 7 days, and no RDS Cluster are defined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 487
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "2b1d4935-9acf-48a7-8466-10d18bf51a69",
+					"ruleIndex": 24,
+					"kind": "fail",
+					"message": {
+						"text": "The RDS DBInstance 'DefaultDB' has MultiAZ value set to false"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 486
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "8c415f6f-7b90-4a27-a44a-51047e1506f9",
+					"ruleIndex": 25,
+					"kind": "fail",
+					"message": {
+						"text": "'Resources.DefaultDB.Properties.BackupRetentionPeriod' is equal to zero"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 487
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "4f0908b9-eb66-433f-9145-134274e1e944",
+					"ruleIndex": 26,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.PublicRoute.Properties.DestinationCidrBlock is 0.0.0.0/0"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/eks.yaml"
+								},
+								"region": {
+									"startLine": 167
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "4f0908b9-eb66-433f-9145-134274e1e944",
+					"ruleIndex": 26,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.PublicRoute.Properties.NatGatewayId is undefined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/eks.yaml"
+								},
+								"region": {
+									"startLine": 165
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "4f0908b9-eb66-433f-9145-134274e1e944",
+					"ruleIndex": 26,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.WebDefaultPublicRoute.Properties.NatGatewayId is undefined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 285
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "4f0908b9-eb66-433f-9145-134274e1e944",
+					"ruleIndex": 26,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.PrivateRoute02.Properties.DestinationCidrBlock is 0.0.0.0/0"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/eks.yaml"
+								},
+								"region": {
+									"startLine": 185
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "4f0908b9-eb66-433f-9145-134274e1e944",
+					"ruleIndex": 26,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.WebDefaultPublicRoute.Properties.DestinationCidrBlock is 0.0.0.0/0"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 287
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "4f0908b9-eb66-433f-9145-134274e1e944",
+					"ruleIndex": 26,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.PrivateRoute01.Properties.DestinationCidrBlock is 0.0.0.0/0"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/eks.yaml"
+								},
+								"region": {
+									"startLine": 176
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "37fa8188-738b-42c8-bf82-6334ea567738",
+					"ruleIndex": 27,
+					"kind": "fail",
+					"message": {
+						"text": "'Resources.OperationsBucket.Properties.BucketName' or 'Resources.[OperationsBucket]' is not the same as an 'AWS::S3::BucketPolicy' Bucket"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 971
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "37fa8188-738b-42c8-bf82-6334ea567738",
+					"ruleIndex": 27,
+					"kind": "fail",
+					"message": {
+						"text": "'Resources.DataBucket.Properties.BucketName' or 'Resources.[DataBucket]' is not the same as an 'AWS::S3::BucketPolicy' Bucket"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 917
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "37fa8188-738b-42c8-bf82-6334ea567738",
+					"ruleIndex": 27,
+					"kind": "fail",
+					"message": {
+						"text": "'Resources.DataScienceBucket.Properties.BucketName' or 'Resources.[DataScienceBucket]' is not the same as an 'AWS::S3::BucketPolicy' Bucket"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 999
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "37fa8188-738b-42c8-bf82-6334ea567738",
+					"ruleIndex": 27,
+					"kind": "fail",
+					"message": {
+						"text": "'Resources.FinancialsBucket.Properties.BucketName' or 'Resources.[FinancialsBucket]' is not the same as an 'AWS::S3::BucketPolicy' Bucket"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 945
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "37fa8188-738b-42c8-bf82-6334ea567738",
+					"ruleIndex": 27,
+					"kind": "fail",
+					"message": {
+						"text": "'Resources.LogsBucket.Properties.BucketName' or 'Resources.[LogsBucket]' is not the same as an 'AWS::S3::BucketPolicy' Bucket"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 1030
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "a227ec01-f97a-4084-91a4-47b350c1db54",
+					"ruleIndex": 28,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.FinancialsBucket.Properties.VersioningConfiguration is undefined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 949
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "a227ec01-f97a-4084-91a4-47b350c1db54",
+					"ruleIndex": 28,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.DataBucket.Properties.VersioningConfiguration is undefined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 921
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "4a1e6b34-1008-4e61-a5f2-1f7c276f8d14",
+					"ruleIndex": 29,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.WebNodeSG.Properties.SecurityGroupIngress[0].CidrIp is open to the world (0.0.0.0/0)"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 118
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "4a1e6b34-1008-4e61-a5f2-1f7c276f8d14",
+					"ruleIndex": 29,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.WebNodeSG.Properties.SecurityGroupIngress[1].CidrIp is open to the world (0.0.0.0/0)"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 118
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "4a1e6b34-1008-4e61-a5f2-1f7c276f8d14",
+					"ruleIndex": 29,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.WebNodeSG.Properties.SecurityGroupIngress[2].CidrIp is open to the world (0.0.0.0/0)"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 118
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "3e293410-d5b8-411f-85fd-7d26294f20c9",
+					"ruleIndex": 30,
+					"kind": "fail",
+					"message": {
+						"text": "'Resources.WebVPC' is not associated with a AWS Network Firewall"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 148
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "3e293410-d5b8-411f-85fd-7d26294f20c9",
+					"ruleIndex": 30,
+					"kind": "fail",
+					"message": {
+						"text": "'Resources.VPC' is not associated with a AWS Network Firewall"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/eks.yaml"
+								},
+								"region": {
+									"startLine": 76
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "06933df4-0ea7-461c-b9b5-104d27390e0e",
+					"ruleIndex": 31,
+					"kind": "fail",
+					"message": {
+						"text": "'Resources.Properties' does not contain Groups"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 379
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "c2eae442-d3ba-4cb1-84ca-1db4f80eae3d",
+					"ruleIndex": 32,
+					"kind": "fail",
+					"message": {
+						"text": "'Resources.AnalysisLambda.Properties.DeadLetterConfig' is undefined or null"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 880
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "c2eae442-d3ba-4cb1-84ca-1db4f80eae3d",
+					"ruleIndex": 32,
+					"kind": "fail",
+					"message": {
+						"text": "'Resources.CleanBucketFunction.Properties.DeadLetterConfig' is undefined or null"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 1119
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "9488c451-074e-4cd3-aee3-7db6104f542c",
+					"ruleIndex": 33,
+					"kind": "fail",
+					"message": {
+						"text": "Property 'TracingConfig' is undefined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 880
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "9488c451-074e-4cd3-aee3-7db6104f542c",
+					"ruleIndex": 33,
+					"kind": "fail",
+					"message": {
+						"text": "Property 'TracingConfig' is undefined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 1119
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "2c161e58-cb52-454f-abea-6470c37b5e6e",
+					"ruleIndex": 34,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.DefaultDB.Properties.DeletionProtection is undefined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 471
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "4552b71f-0a2a-4bc4-92dd-ed7ec1b4674c",
+					"ruleIndex": 35,
+					"kind": "fail",
+					"message": {
+						"text": "'Resources.OperationsBucket.Properties' doesn't have property 'LoggingConfiguration'"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 975
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "4552b71f-0a2a-4bc4-92dd-ed7ec1b4674c",
+					"ruleIndex": 35,
+					"kind": "fail",
+					"message": {
+						"text": "'Resources.FinancialsBucket.Properties' doesn't have property 'LoggingConfiguration'"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 949
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "4552b71f-0a2a-4bc4-92dd-ed7ec1b4674c",
+					"ruleIndex": 35,
+					"kind": "fail",
+					"message": {
+						"text": "'Resources.LogsBucket.Properties' doesn't have property 'LoggingConfiguration'"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 1034
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "4552b71f-0a2a-4bc4-92dd-ed7ec1b4674c",
+					"ruleIndex": 35,
+					"kind": "fail",
+					"message": {
+						"text": "'Resources.DataBucket.Properties' doesn't have property 'LoggingConfiguration'"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 921
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "5e6c9c68-8a82-408e-8749-ddad78cbb9c5",
+					"ruleIndex": 36,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.DefaultSG.Properties.SecurityGroupIngress[0].Description is undefined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 604
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "5e6c9c68-8a82-408e-8749-ddad78cbb9c5",
+					"ruleIndex": 36,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.WebNodeSG.Properties.SecurityGroupIngress[0].Description is undefined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 118
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "5e6c9c68-8a82-408e-8749-ddad78cbb9c5",
+					"ruleIndex": 36,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.WebNodeSG.Properties.SecurityGroupIngress[1].Description is undefined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 118
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "5e6c9c68-8a82-408e-8749-ddad78cbb9c5",
+					"ruleIndex": 36,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.WebNodeSG.Properties.SecurityGroupIngress[2].Description is undefined"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 118
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "ad7444cf-817a-4765-a79e-2145f7981faf",
+					"ruleIndex": 37,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.NatGatewayEIP1 does not have shield advanced associated"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/eks.yaml"
+								},
+								"region": {
+									"startLine": 189
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "ad7444cf-817a-4765-a79e-2145f7981faf",
+					"ruleIndex": 37,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.NatGatewayEIP2 does not have shield advanced associated"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/eks.yaml"
+								},
+								"region": {
+									"startLine": 203
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "f6d299d2-21eb-41cc-b1e1-fe12d857500b",
+					"ruleIndex": 38,
+					"kind": "fail",
+					"message": {
+						"text": "Resources.VPC doesn't have a FlowLogs resource associated"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/eks.yaml"
+								},
+								"region": {
+									"startLine": 76
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "8dd0ff1f-0da4-48df-9bb3-7f338ae36a40",
+					"ruleIndex": 39,
+					"kind": "informational",
+					"message": {
+						"text": "Resources.DBAppInstance.Properties doesn't have EbsOptimized set to true."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 692
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "8dd0ff1f-0da4-48df-9bb3-7f338ae36a40",
+					"ruleIndex": 39,
+					"kind": "informational",
+					"message": {
+						"text": "Resources.EC2Instance.Properties doesn't have EbsOptimized set to true."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "cfngoat/cfngoat.yaml"
+								},
+								"region": {
+									"startLine": 33
+								}
+							}
+						}
+					]
+				}
+			],
+			"taxonomies": [
+				{
+					"guid": "58cdcc6f-fe41-4724-bfb3-131a93df4c3f",
+					"name": "Categories",
+					"fullDescription": {
+						"text": "This taxonomy contains the types an issue can assume"
+					},
+					"shortDescription": {
+						"text": "Vulnerabilities categories"
+					},
+					"taxa": [
+						{
+							"id": "CAT000",
+							"name": "Undefined Category",
+							"shortDescription": {
+								"text": "Category is not defined"
+							},
+							"fullDescription": {
+								"text": "Category is not defined"
+							}
+						},
+						{
+							"id": "CAT007",
+							"name": "Insecure Configurations",
+							"shortDescription": {
+								"text": "Configurations which expose the application unnecessarily"
+							},
+							"fullDescription": {
+								"text": "Configurations which expose the application unnecessarily"
+							}
+						},
+						{
+							"id": "CAT011",
+							"name": "Resource Management",
+							"shortDescription": {
+								"text": "Resource and privilege limit configuration"
+							},
+							"fullDescription": {
+								"text": "Resource and privilege limit configuration"
+							}
+						},
+						{
+							"id": "CAT012",
+							"name": "Secret Management",
+							"shortDescription": {
+								"text": "Secret and Key management"
+							},
+							"fullDescription": {
+								"text": "Secret and Key management"
+							}
+						},
+						{
+							"id": "CAT014",
+							"name": "Structure and Semantics",
+							"shortDescription": {
+								"text": "Malformed document structure or inadequate semantics"
+							},
+							"fullDescription": {
+								"text": "Malformed document structure or inadequate semantics"
+							}
+						},
+						{
+							"id": "CAT004",
+							"name": "Best Practices",
+							"shortDescription": {
+								"text": "Metadata management"
+							},
+							"fullDescription": {
+								"text": "Metadata management"
+							}
+						},
+						{
+							"id": "CAT005",
+							"name": "Build Process",
+							"shortDescription": {
+								"text": "Insecure configurations when building/deploying"
+							},
+							"fullDescription": {
+								"text": "Insecure configurations when building/deploying"
+							}
+						},
+						{
+							"id": "CAT008",
+							"name": "Insecure Defaults",
+							"shortDescription": {
+								"text": "Configurations that are insecure by default"
+							},
+							"fullDescription": {
+								"text": "Configurations that are insecure by default"
+							}
+						},
+						{
+							"id": "CAT010",
+							"name": "Observability",
+							"shortDescription": {
+								"text": "Logging and Monitoring"
+							},
+							"fullDescription": {
+								"text": "Logging and Monitoring"
+							}
+						},
+						{
+							"id": "CAT015",
+							"name": "Bill Of Materials",
+							"shortDescription": {
+								"text": "List of resources provisioned"
+							},
+							"fullDescription": {
+								"text": "List of resources provisioned"
+							}
+						},
+						{
+							"id": "CAT001",
+							"name": "Access Control",
+							"shortDescription": {
+								"text": "Service permission and identity management"
+							},
+							"fullDescription": {
+								"text": "Service permission and identity management"
+							}
+						},
+						{
+							"id": "CAT002",
+							"name": "Availability",
+							"shortDescription": {
+								"text": "Reliability and Scalability"
+							},
+							"fullDescription": {
+								"text": "Reliability and Scalability"
+							}
+						},
+						{
+							"id": "CAT009",
+							"name": "Networking and Firewall",
+							"shortDescription": {
+								"text": "Network port exposure and firewall configuration"
+							},
+							"fullDescription": {
+								"text": "Network port exposure and firewall configuration"
+							}
+						},
+						{
+							"id": "CAT003",
+							"name": "Backup",
+							"shortDescription": {
+								"text": "Survivability and Recovery"
+							},
+							"fullDescription": {
+								"text": "Survivability and Recovery"
+							}
+						},
+						{
+							"id": "CAT006",
+							"name": "Encryption",
+							"shortDescription": {
+								"text": "Data Security and Encryption configuration"
+							},
+							"fullDescription": {
+								"text": "Data Security and Encryption configuration"
+							}
+						},
+						{
+							"id": "CAT013",
+							"name": "Supply-Chain",
+							"shortDescription": {
+								"text": "Dependency version management"
+							},
+							"fullDescription": {
+								"text": "Dependency version management"
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

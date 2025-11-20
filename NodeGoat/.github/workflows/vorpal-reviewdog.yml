@@ -1,0 +1,58 @@
+name: Vorpal Code Analysis
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  vorpal-reviewdog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install Vorpal CLI
+        run: npm install -g vorpal
+
+      - name: Run Vorpal analysis
+        run: |
+          vorpal analyze --output=vorpal-report.json
+
+      - name: Install reviewdog
+        env:
+          REVIEWDOG_VERSION: v0.20.3
+        run: |
+          curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b "${HOME}/bin" "${REVIEWDOG_VERSION}"
+          echo "${HOME}/bin" >> "${GITHUB_PATH}"
+
+      - name: Report with reviewdog
+        if: github.event_name == 'pull_request'
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cat vorpal-report.json | reviewdog \
+            -f=vorpal \
+            -name="Vorpal Analysis" \
+            -reporter=github-pr-review \
+            -level=warning
+
+      - name: Upload Vorpal report
+        uses: actions/upload-artifact@v4
+        with:
+          name: vorpal-report
+          path: vorpal-report.json
+

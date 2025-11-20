@@ -1,0 +1,29 @@
+totalitemsscanned: 53
+totalsecretsfound: 2
+results:
+  937530e823f582e43faace0b966b9bfc92e64dab:
+    - id: 937530e823f582e43faace0b966b9bfc92e64dab
+      source: git show b1681f3806db6656faf4107ceceb77e9364e59b7:cfngoat.yaml
+      ruleid: aws-access-token
+      startline: 53
+      endline: 53
+      linecontent: "          export AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMAAA"
+      startcolumn: 36
+      endcolumn: 55
+      value: AKIAIOSFODNN7EXAMAAA
+      validationstatus: ""
+      ruledescription: Identified a pattern that may indicate AWS credentials, risking unauthorized cloud resource access and data breaches on AWS platforms.
+      cvssscore: 10.0
+  50fe19f9753e56eb208e0bef98e4a3fc030fb12b:
+    - id: 50fe19f9753e56eb208e0bef98e4a3fc030fb12b
+      source: git show b1681f3806db6656faf4107ceceb77e9364e59b7:cfngoat.yaml
+      ruleid: generic-api-key
+      startline: 54
+      endline: 54
+      linecontent: "          export AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMAAAKEY"
+      startcolumn: 18
+      endcolumn: 79
+      value: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMAAAKEY
+      validationstatus: ""
+      ruledescription: Detected a Generic API Key, potentially exposing access to various services and sensitive operations.
+      cvssscore: 8.2

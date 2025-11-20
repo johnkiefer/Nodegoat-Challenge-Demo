@@ -1,0 +1,72 @@
+{
+	"kics_version": "1.5.1",
+	"files_scanned": 5,
+	"files_parsed": 5,
+	"files_failed_to_scan": 0,
+	"queries_total": 331,
+	"queries_failed_to_execute": 0,
+	"queries_failed_to_compute_similarity_id": 0,
+	"scan_id": "console",
+	"severity_counters": {
+		"HIGH": 0,
+		"INFO": 0,
+		"LOW": 2,
+		"MEDIUM": 0,
+		"TRACE": 0
+	},
+	"total_counter": 2,
+	"total_bom_resources": 0,
+	"start": "2025-11-19T17:00:52.378593-06:00",
+	"end": "2025-11-19T17:00:55.735163-06:00",
+	"paths": [
+		"./NodeGoat"
+	],
+	"queries": [
+		{
+			"query_name": "Chown Flag Exists",
+			"query_id": "aa93e17f-b6db-4162-9334-c70334e7ac28",
+			"query_url": "https://docs.docker.com/develop/develop-images/dockerfile_best-practices/",
+			"severity": "LOW",
+			"platform": "Dockerfile",
+			"category": "Best Practices",
+			"description": "It is considered a best practice for every executable in a container to be owned by the root user even if it is executed by a non-root user, only execution permissions are required on the file, not ownership",
+			"description_id": "ba0a34dc",
+			"files": [
+				{
+					"file_name": "NodeGoat/Dockerfile",
+					"similarity_id": "a2017074c5362d9854a4d1832c23624cf20cf546722f077dfff78714ebd6f721",
+					"line": 13,
+					"issue_type": "IncorrectValue",
+					"search_key": "FROM={{node:12-alpine}}.{{COPY --chown=node . $WORKDIR}}",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "The 'Dockerfile' shouldn´t contain the 'chown' flag",
+					"actual_value": "The 'Dockerfile' contains the 'chown' flag"
+				}
+			]
+		},
+		{
+			"query_name": "Healthcheck Instruction Missing",
+			"query_id": "b03a748a-542d-44f4-bb86-9199ab4fd2d5",
+			"query_url": "https://docs.docker.com/engine/reference/builder/#healthcheck",
+			"severity": "LOW",
+			"platform": "Dockerfile",
+			"category": "Insecure Configurations",
+			"description": "Ensure that HEALTHCHECK is being used. The HEALTHCHECK instruction tells Docker how to test a container to check that it is still working",
+			"description_id": "426121ee",
+			"files": [
+				{
+					"file_name": "NodeGoat/Dockerfile",
+					"similarity_id": "e64c81b256eaa3a67165aedd4b1cb7627bfe957218d5caf2ced538255a05ce1b",
+					"line": 1,
+					"issue_type": "MissingAttribute",
+					"search_key": "FROM={{node:12-alpine}}",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Dockerfile contains instruction 'HEALTHCHECK'",
+					"actual_value": "Dockerfile doesn't contain instruction 'HEALTHCHECK'"
+				}
+			]
+		}
+	]
+}

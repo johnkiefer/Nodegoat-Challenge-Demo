@@ -1,0 +1,1426 @@
+{
+	"kics_version": "1.5.1",
+	"files_scanned": 4,
+	"files_parsed": 4,
+	"files_failed_to_scan": 0,
+	"queries_total": 772,
+	"queries_failed_to_execute": 0,
+	"queries_failed_to_compute_similarity_id": 0,
+	"scan_id": "console",
+	"severity_counters": {
+		"HIGH": 30,
+		"INFO": 2,
+		"LOW": 17,
+		"MEDIUM": 31,
+		"TRACE": 0
+	},
+	"total_counter": 80,
+	"total_bom_resources": 0,
+	"start": "2025-11-19T17:01:03.345426-06:00",
+	"end": "2025-11-19T17:01:09.128742-06:00",
+	"paths": [
+		"./cfngoat"
+	],
+	"queries": [
+		{
+			"query_name": "CMK Unencrypted Storage",
+			"query_id": "ffee2785-c347-451e-89f3-11aeb08e5c84",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html",
+			"severity": "HIGH",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Encryption",
+			"description": "Ensure that storage is encrypted by KMS on instances that, based on their name, might host a database. ",
+			"description_id": "ba38e42e",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "f298570199330b17c4d5e7da52fc68201e9ac18057df90ff45c42da2131af338",
+					"line": 488,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.DefaultDB.Properties.StorageEncrypted",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.DefaultDB.Properties.StorageEncrypted should be true",
+					"actual_value": "Resources.DefaultDB.Properties.StorageEncrypted is false"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "5555b5775726c333ca99b7dd24644b575ba3dd44093899577574540a60fa07f5",
+					"line": 471,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.DefaultDB.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.DefaultDB.Properties.KmsKeyId should be defined with AWS-Managed CMK",
+					"actual_value": "Resources.DefaultDB.Properties.KmsKeyId is undefined"
+				}
+			]
+		},
+		{
+			"query_name": "DB Instance Publicly Accessible",
+			"query_id": "de38e1d5-54cb-4111-a868-6f7722695007",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html",
+			"severity": "HIGH",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Insecure Configurations",
+			"description": "RDS must not be defined with public interface, which means the attribute 'PubliclyAccessible' must be set to false.",
+			"description_id": "dae1e8ab",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "d6bfac5a711b28dcb63f13af29ae689e8f956902f773e60a5badbbc3b15905aa",
+					"line": 490,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.DefaultDB.Properties.PubliclyAccessible",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "'Resources.DefaultDB.Properties.PubliclyAccessible' is set to false",
+					"actual_value": "'Resources.DefaultDB.Properties.PubliclyAccessible' is set to true"
+				}
+			]
+		},
+		{
+			"query_name": "DB Security Group with Public Scope",
+			"query_id": "9564406d-e761-4e61-b8d7-5926e3ab8e79",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html",
+			"severity": "HIGH",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Networking and Firewall",
+			"description": "The IP address in a DB Security Group must not be '0.0.0.0/0' (IPv4) or '::/0' (IPv6).",
+			"description_id": "3ddca0cc",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "ce79d4140717bd3be6332c47c6951f8d4adaa0c4993f403b76e605ee85415537",
+					"line": 118,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.WebNodeSG.Properties.SecurityGroupIngress",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "'Resources.WebNodeSG.Properties.SecurityGroupIngress' should not be '0.0.0.0/0'.",
+					"actual_value": "'Resources.WebNodeSG.Properties.SecurityGroupIngress' is '0.0.0.0/0'."
+				}
+			]
+		},
+		{
+			"query_name": "HTTP Port Open",
+			"query_id": "ddfc4eaa-af23-409f-b96c-bf5c45dc4daa",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html",
+			"severity": "HIGH",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Networking and Firewall",
+			"description": "The HTTP port is open in a Security Group",
+			"description_id": "a39efd21",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "58c99702515ea071c4445423ed0bcb60e26db81c9a481f6baad5064c15bf08b0",
+					"line": 118,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.WebNodeSG.Properties.SecurityGroupIngress",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.WebNodeSG.Properties.SecurityGroupIngress[0] doesn't open the HTTP port (80)",
+					"actual_value": "Resources.WebNodeSG.Properties.SecurityGroupIngress[0] opens the HTTP port (80)"
+				}
+			]
+		},
+		{
+			"query_name": "IAM Database Auth Not Enabled",
+			"query_id": "9fcd0a0a-9b6f-4670-a215-d94e6bf3f184",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-enableiamdatabaseauthentication",
+			"severity": "HIGH",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Encryption",
+			"description": "IAM Database Auth Enabled must be configured to true",
+			"description_id": "e4c2c085",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "815ccdd97abbc06b3cd078828f8e740e8594ae9ad984e5c9adccfbe4c81b3daf",
+					"line": 471,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.DefaultDB.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.DefaultDB.Properties.EnableIAMDatabaseAuthentication is defined",
+					"actual_value": "Resources.DefaultDB.Properties.EnableIAMDatabaseAuthentication is undefined"
+				}
+			]
+		},
+		{
+			"query_name": "Passwords And Secrets - AWS Access Key",
+			"query_id": "76c0bcde-903d-456e-ac13-e58c34987852",
+			"query_url": "https://kics.io/",
+			"severity": "HIGH",
+			"platform": "Common",
+			"cloud_provider": "COMMON",
+			"category": "Secret Management",
+			"description": "Query to find passwords and secrets in infrastructure code.",
+			"description_id": "d69d8a89",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "1c0a12c3bf9b933037661f5bd564c3358e309006793f26e5aa1cb53e6fe95cb7",
+					"line": 69,
+					"issue_type": "RedundantAttribute",
+					"search_key": "",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Hardcoded secret key should not appear in source",
+					"actual_value": "'          export AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMAAA' contains a secret"
+				}
+			]
+		},
+		{
+			"query_name": "Passwords And Secrets - AWS Secret Key",
+			"query_id": "83ab47ff-381d-48cd-bac5-fb32222f54af",
+			"query_url": "https://kics.io/",
+			"severity": "HIGH",
+			"platform": "Common",
+			"cloud_provider": "COMMON",
+			"category": "Secret Management",
+			"description": "Query to find passwords and secrets in infrastructure code.",
+			"description_id": "d69d8a89",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "a191531cf35a53be38893b5aa0cc23f34da7b7baa39803cef90b98ccf1f76d93",
+					"line": 70,
+					"issue_type": "RedundantAttribute",
+					"search_key": "",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Hardcoded secret key should not appear in source",
+					"actual_value": "'          export AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMAAAKEY' contains a secret"
+				}
+			]
+		},
+		{
+			"query_name": "RDS Storage Not Encrypted",
+			"query_id": "5beacce3-4020-4a3d-9e1d-a36f953df630",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html",
+			"severity": "HIGH",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Encryption",
+			"description": "AWS RDS DB Instance should be encrypted",
+			"description_id": "f052de92",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "a7c1938266e1ac89d8fefff2e68dd6cc8d1312f4d199eacaedf2ff4e7454dd99",
+					"line": 488,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.DefaultDB.Properties.StorageEncrypted",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.DefaultDB.Properties.StorageEncrypted is set to true",
+					"actual_value": "Resources.DefaultDB.Properties.StorageEncrypted is set to false"
+				}
+			]
+		},
+		{
+			"query_name": "S3 Bucket ACL Allows Read to All Users",
+			"query_id": "219f4c95-aa50-44e0-97de-cf71f4641170",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html",
+			"severity": "HIGH",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Access Control",
+			"description": "S3 Buckets sould not be readable and writable to all users",
+			"description_id": "cfd67020",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "39818b7b54a13e7e64361c8857c4f14eca1260f951994641ce5c892c98c87217",
+					"line": 923,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.DataBucket.Properties.AccessControl",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "S3 bucket should not have a public readable ACL",
+					"actual_value": "S3 bucket 'DataBucket' has ACL set to 'PublicRead'"
+				}
+			]
+		},
+		{
+			"query_name": "S3 Bucket SSE Disabled",
+			"query_id": "64ab651b-f5b2-4af0-8c89-ddd03c4d0e61",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-serversideencryptionbydefault.html",
+			"severity": "HIGH",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Encryption",
+			"description": "If algorithm is AES256 then the master key is null, empty or undefined, otherwise the master key is required",
+			"description_id": "42fd2930",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "85314161119395ce9eaba0e73108f8d9db4e0559279474d56a37b171216386ef",
+					"line": 1003,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.DataScienceBucket.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.DataScienceBucket.Properties.BucketEncryption is set",
+					"actual_value": "Resources.DataScienceBucket.Properties.BucketEncryption is undefined"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "c0d268cecf50f50a638599e3f2dfdeb30def7ee71162a7c0b5e3a09dbde5b0ce",
+					"line": 949,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.FinancialsBucket.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.FinancialsBucket.Properties.BucketEncryption is set",
+					"actual_value": "Resources.FinancialsBucket.Properties.BucketEncryption is undefined"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "a397dccc4f616b332ec4763ae7ed06a376ed000630ee1836da1d12f80d8e086f",
+					"line": 975,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.OperationsBucket.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.OperationsBucket.Properties.BucketEncryption is set",
+					"actual_value": "Resources.OperationsBucket.Properties.BucketEncryption is undefined"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "8ff24ddf7c8aac308c43b17b0fab8170a312baebd7770682cf88b4f1c0ff1c91",
+					"line": 921,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.DataBucket.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.DataBucket.Properties.BucketEncryption is set",
+					"actual_value": "Resources.DataBucket.Properties.BucketEncryption is undefined"
+				}
+			]
+		},
+		{
+			"query_name": "S3 Bucket Without SSL In Write Actions",
+			"query_id": "38c64e76-c71e-4d92-a337-60174d1de1c9",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html",
+			"severity": "HIGH",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Encryption",
+			"description": "S3 Buckets should enforce encryption of data transfers using Secure Sockets Layer (SSL)",
+			"description_id": "907676d7",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "3f6a555d27b217ad9e51a0dabe8f8bf308eba0ad131056202df854d3bd50aeec",
+					"line": 1030,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.LogsBucket",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.LogsBucket bucket has a policy that enforces SSL",
+					"actual_value": "Resources.LogsBucket bucket doesn't have a policy"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "fa0a7818db7d0c22d2c4cbdc408bb4a8d24c83ac064972ce01577bd1b85cac46",
+					"line": 999,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.DataScienceBucket",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.DataScienceBucket bucket has a policy that enforces SSL",
+					"actual_value": "Resources.DataScienceBucket bucket doesn't have a policy"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "562f412beb50f8a0f0f7ef28db05e6573199f5987b1435d157627deaebbe3cce",
+					"line": 917,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.DataBucket",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.DataBucket bucket has a policy that enforces SSL",
+					"actual_value": "Resources.DataBucket bucket doesn't have a policy"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "6c978557ec56275535f3c6c4fcf5282b35ac661d6d17408045da6d34d293140c",
+					"line": 945,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.FinancialsBucket",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.FinancialsBucket bucket has a policy that enforces SSL",
+					"actual_value": "Resources.FinancialsBucket bucket doesn't have a policy"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "0f35cb6a313851086c6d154449406752f9e9a48affff3954d36e4e153255592d",
+					"line": 971,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.OperationsBucket",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.OperationsBucket bucket has a policy that enforces SSL",
+					"actual_value": "Resources.OperationsBucket bucket doesn't have a policy"
+				}
+			]
+		},
+		{
+			"query_name": "S3 Bucket Without Server-side-encryption",
+			"query_id": "b2e8752c-3497-4255-98d2-e4ae5b46bbf5",
+			"query_url": "https://docs.aws.amazon.com/AmazonS3/latest/user-guide/default-bucket-encryption.html",
+			"severity": "HIGH",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Encryption",
+			"description": "S3 Buckets should have server-side encryption at rest enabled to protect sensitive data",
+			"description_id": "314a460b",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "de560efd3f106a1e8cd60fcf4608d6a19907d33235c658ceff4ce8da2b7e3169",
+					"line": 921,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.DataBucket.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.DataBucket.Properties.BucketEncryption.ServerSideEncryptionConfiguration is defined and not empty",
+					"actual_value": "Resources.DataBucket.Properties.BucketEncryption.ServerSideEncryptionConfiguration is undefined or empty"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "93093be638f6c83f0e7cdebc9719ea4b8f8acb6faa7acc35a823aeff10855e71",
+					"line": 975,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.OperationsBucket.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.OperationsBucket.Properties.BucketEncryption.ServerSideEncryptionConfiguration is defined and not empty",
+					"actual_value": "Resources.OperationsBucket.Properties.BucketEncryption.ServerSideEncryptionConfiguration is undefined or empty"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "5f160b611251025d5b9e774639bbeeab05f7b92a93dd33583b6cb728215d5841",
+					"line": 1003,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.DataScienceBucket.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.DataScienceBucket.Properties.BucketEncryption.ServerSideEncryptionConfiguration is defined and not empty",
+					"actual_value": "Resources.DataScienceBucket.Properties.BucketEncryption.ServerSideEncryptionConfiguration is undefined or empty"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "ca4cb2c2d864dfb7dc5fe8e21ffeb5b8ef5b037979938669f52f1f31ab47a088",
+					"line": 949,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.FinancialsBucket.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.FinancialsBucket.Properties.BucketEncryption.ServerSideEncryptionConfiguration is defined and not empty",
+					"actual_value": "Resources.FinancialsBucket.Properties.BucketEncryption.ServerSideEncryptionConfiguration is undefined or empty"
+				}
+			]
+		},
+		{
+			"query_name": "S3 Static Website Host Enabled",
+			"query_id": "90501b1b-cded-4cc1-9e8b-206b85cda317",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-publicaccessblockconfiguration.html",
+			"severity": "HIGH",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Insecure Configurations",
+			"description": "It's dangerous disabling a block public access settings in bucket or writing a bucket policy that grants public read access",
+			"description_id": "b50aab99",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "56233996ee808a481e4db1aa0199f2423b180d58f980fe072a6a5e9bb7e67a0c",
+					"line": 1034,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.LogsBucket.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "'Resources.LogsBucket.Properties.WebsiteConfiguration' and 'Resources.%!s(MISSING).Properties.AcessControl' are undefined",
+					"actual_value": "'Resources.LogsBucket.Properties.WebsiteConfiguration' or 'Resources.%!s(MISSING).Properties.AccessControl' are defined"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "cde2c4546bd9174a76d543bf56282b3e67e55d5cc9ee21b45eecb175ab69f164",
+					"line": 921,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.DataBucket.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "'Resources.DataBucket.Properties.WebsiteConfiguration' and 'Resources.%!s(MISSING).Properties.AcessControl' are undefined",
+					"actual_value": "'Resources.DataBucket.Properties.WebsiteConfiguration' or 'Resources.%!s(MISSING).Properties.AccessControl' are defined"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "12626bf0bbd1881cf50f2d3dc5b9305ee4b45db4e35dfea81b56b002b7251767",
+					"line": 1003,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.DataScienceBucket.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "'Resources.DataScienceBucket.Properties.WebsiteConfiguration' and 'Resources.%!s(MISSING).Properties.AcessControl' are undefined",
+					"actual_value": "'Resources.DataScienceBucket.Properties.WebsiteConfiguration' or 'Resources.%!s(MISSING).Properties.AccessControl' are defined"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "c8b0925df9b388bcad375d24cb68de1be95f54c34f96b14fcaf52c3ef70346a5",
+					"line": 975,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.OperationsBucket.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "'Resources.OperationsBucket.Properties.WebsiteConfiguration' and 'Resources.%!s(MISSING).Properties.AcessControl' are undefined",
+					"actual_value": "'Resources.OperationsBucket.Properties.WebsiteConfiguration' or 'Resources.%!s(MISSING).Properties.AccessControl' are defined"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "5accda00ef48decfb288de62966882e992d238fbdc164c4dc7d41b974bac834b",
+					"line": 949,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.FinancialsBucket.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "'Resources.FinancialsBucket.Properties.WebsiteConfiguration' and 'Resources.%!s(MISSING).Properties.AcessControl' are undefined",
+					"actual_value": "'Resources.FinancialsBucket.Properties.WebsiteConfiguration' or 'Resources.%!s(MISSING).Properties.AccessControl' are defined"
+				}
+			]
+		},
+		{
+			"query_name": "Security Group With Unrestricted Access To SSH",
+			"query_id": "6e856af2-62d7-4ba2-adc1-73b62cef9cc1",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html",
+			"severity": "HIGH",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Networking and Firewall",
+			"description": "Security Groups allows all traffic for SSH (port:22)",
+			"description_id": "d515d6dc",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "236f514a5ed299e252eb93936b957f90fce9046a6e08cee69efcb3660d7570a7",
+					"line": 118,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.WebNodeSG.Properties.SecurityGroupIngress",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "None of the Resources.WebNodeSG.Properties.SecurityGroupIngress has port 22",
+					"actual_value": "One of the Resources.WebNodeSG.Properties.SecurityGroupIngress has port 22"
+				}
+			]
+		},
+		{
+			"query_name": "Security Groups With Exposed Admin Ports",
+			"query_id": "cdbb0467-2957-4a77-9992-7b55b29df7b7",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html",
+			"severity": "HIGH",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Networking and Firewall",
+			"description": "Security Groups should not have ports open in (20, 21, 22, 23, 115, 137, 138, 139, 2049, 3389)",
+			"description_id": "e14121d4",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "fddce8bff45742e5b9f3d91bcd41f430e49729e2e78c98160bf2c79adf3d8736",
+					"line": 118,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.WebNodeSG.Properties.SecurityGroupIngress",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "None of the Resources.WebNodeSG.Properties.SecurityGroupIngress has an exposed port",
+					"actual_value": "One of the Resources.WebNodeSG.Properties.SecurityGroupIngress has a too exposed port (20,21,22,23,115,137,138,2049,3389)"
+				}
+			]
+		},
+		{
+			"query_name": "Automatic Minor Upgrades Disabled",
+			"query_id": "f0104061-8bfc-4b45-8a7d-630eb502f281",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html",
+			"severity": "MEDIUM",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Best Practices",
+			"description": "AWS RDS should have automatic minor upgrades enabled, which means the attribute 'AutoMinorVersionUpgrade' must be set to true.",
+			"description_id": "e2908402",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "625d617528f9d13c40949ed1db5f1e4da1bb9259b0186c089bfc5ca0f1682022",
+					"line": 471,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.DefaultDB.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "'Resources.DefaultDB.Properties.AutoMinorVersionUpgrade' is defined",
+					"actual_value": "'Resources.DefaultDB.Properties.AutoMinorVersionUpgrade' is undefined"
+				}
+			]
+		},
+		{
+			"query_name": "EBS Volume Encryption Disabled",
+			"query_id": "80b7ac3f-d2b7-4577-9b10-df7913497162",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ebs-volume.html",
+			"severity": "MEDIUM",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Encryption",
+			"description": "EBS volumes should be encrypted",
+			"description_id": "8a51c141",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "0b411d50e2c52aaa74dd23f3c0d2a4f0e2af76348034515bee14de7a72688f14",
+					"line": 76,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.WebHostStorage.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.WebHostStorage.Properties.Encrypted is defined and not null",
+					"actual_value": "Resources.WebHostStorage.Properties.Encrypted is undefined or null"
+				}
+			]
+		},
+		{
+			"query_name": "EBS Volume Without KmsKeyId",
+			"query_id": "b7063015-6c31-4658-a8e7-14f98f37fd42",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ebs-volume.html",
+			"severity": "MEDIUM",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Secret Management",
+			"description": "EBS Volume should specify a KmsKeyId value",
+			"description_id": "a10e872a",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "c0051681b6123e1cada51a4121648f54d8aeabc3cb48009c39255145f65ad74c",
+					"line": 76,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.WebHostStorage.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.WebHostStorage.Properties.KmsKeyId should be defined",
+					"actual_value": "Resources.WebHostStorage.Properties.KmsKeyId is undefined"
+				}
+			]
+		},
+		{
+			"query_name": "EC2 Instance Has No IAM Role",
+			"query_id": "f914357d-8386-4d56-9ba6-456e5723f9a6",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html",
+			"severity": "MEDIUM",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Access Control",
+			"description": "Check if an EC2 instance refers to an IAM profile, which represents an IAM Role.",
+			"description_id": "bf34b145",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "68f4ff77c87385328eb664691ca0f52b4fc6f40d9033668738bc3182b430afef",
+					"line": 33,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.EC2Instance.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "'Resources.EC2Instance.Properties.IamInstanceProfile' is set",
+					"actual_value": "'Resources.EC2Instance.Properties.IamInstanceProfile' is undefined"
+				}
+			]
+		},
+		{
+			"query_name": "EC2 Instance Has Public IP",
+			"query_id": "b3de4e4c-14be-4159-b99d-9ad194365e4c",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet.html#cfn-ec2-subnet-mappubliciponlaunch",
+			"severity": "MEDIUM",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Insecure Configurations",
+			"description": "EC2 Subnet should not have MapPublicIpOnLaunch set to true",
+			"description_id": "22e3d598",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "2b87d40b5b6b876dae9068bb8521aa45a19c8eb8c1ddbe47570cbcf80d441f29",
+					"line": 182,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.WebSubnet.Properties.MapPublicIpOnLaunch",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "'Resources.WebSubnet.Properties.MapPublicIpOnLaunch' should be false",
+					"actual_value": "'Resources.WebSubnet.Properties.MapPublicIpOnLaunch' is true"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "8a726afc5b169ca9a286c40babbe658c73404709703637e8390064e4bc54efbf",
+					"line": 211,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.WebSubnet2.Properties.MapPublicIpOnLaunch",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "'Resources.WebSubnet2.Properties.MapPublicIpOnLaunch' should be false",
+					"actual_value": "'Resources.WebSubnet2.Properties.MapPublicIpOnLaunch' is true"
+				}
+			]
+		},
+		{
+			"query_name": "IAM User Without Password Reset",
+			"query_id": "a964d6e3-8e1e-4d93-8120-61fa640dd55a",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-user-loginprofile.html",
+			"severity": "MEDIUM",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Best Practices",
+			"description": "IAM User Login Profile should exist and have PasswordResetRequired property set to true",
+			"description_id": "a44edc48",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "cef6d9a8e3a4c2f0d697b3dbbbe8f7e84e4b605a198357544c7029187f26ea83",
+					"line": 379,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.User.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "'Resources.User.Properties' should be configured with LoginProfile with PasswordResetRequired property set to true",
+					"actual_value": "'Resources.User.Properties' does not include LoginProfile"
+				}
+			]
+		},
+		{
+			"query_name": "Instance With No VPC",
+			"query_id": "8a6d36cd-0bc6-42b7-92c4-67acc8576861",
+			"query_url": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-vpc.html",
+			"severity": "MEDIUM",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Insecure Configurations",
+			"description": "EC2 Instances should be configured under a VPC network. AWS VPCs provide the controls to facilitate a formal process for approving and testing all network connections and changes to the firewall and router configurations.",
+			"description_id": "c2bb3a56",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "208b290d0ac027f02ac2bd3753358fe1bbe67b1a20477a766ae583d8f9444089",
+					"line": 33,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.EC2Instance.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.EC2Instance.Properties.NetworkInterfaces should be defined",
+					"actual_value": "Resources.EC2Instance.Properties.NetworkInterfaces is undefined"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "8b276bc0ff40cda9eda76877ef77ef78e10bd39d14f59e441a7b634a6562af49",
+					"line": 692,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.DBAppInstance.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.DBAppInstance.Properties.NetworkInterfaces should be defined",
+					"actual_value": "Resources.DBAppInstance.Properties.NetworkInterfaces is undefined"
+				}
+			]
+		},
+		{
+			"query_name": "KMS Key Rotation Disabled",
+			"query_id": "235ca980-eb71-48f4-9030-df0c371029eb",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kms-key.html",
+			"severity": "MEDIUM",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Encryption",
+			"description": "EnableKeyRotation should not be false or undefined",
+			"description_id": "323313bc",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "6d54ac6b46981c4c62f91d9adac1be842518a3a87f984fed68fc819a68bf8aa5",
+					"line": 429,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.LogsKey.Properties.EnableKeyRotation",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.LogsKey.Properties.EnableKeyRotation is defined",
+					"actual_value": "Resources.LogsKey.Properties.EnableKeyRotation is undefined"
+				}
+			]
+		},
+		{
+			"query_name": "Low RDS Backup Retention Period",
+			"query_id": "e649a218-d099-4550-86a4-1231e1fcb60d",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html",
+			"severity": "MEDIUM",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Backup",
+			"description": "AWS RDS backup retention policy should be at least 7 days",
+			"description_id": "55094eb2",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "072e48a88d82199c1dbc5c9fb43c9b1b285ae5b6e9aae68e313f70de44fa130b",
+					"line": 487,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.DefaultDB.Properties.BackupRetentionPeriod",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "The RDS DBInstance 'DefaultDB' resource has a minimum backup retention period of at least 7 days",
+					"actual_value": "The RDS DBCluster 'DefaultDB' resource has backup retention period of '%!s(int=0)' which is less than the minimum of 7 days, and no RDS Cluster are defined"
+				}
+			]
+		},
+		{
+			"query_name": "RDS Multi-AZ Deployment Disabled",
+			"query_id": "2b1d4935-9acf-48a7-8466-10d18bf51a69",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html",
+			"severity": "MEDIUM",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Backup",
+			"description": "AWS RDS Instance should have a multi-az deployment",
+			"description_id": "4bdb6677",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "a01c3280307df6ed5b83f0521ee1c080863492c9c50e9a8e59f4aa073edc4169",
+					"line": 486,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.DefaultDB.Properties.MultiAZ",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "The RDS DBInstance 'DefaultDB' should have Multi-Availability Zone enabled",
+					"actual_value": "The RDS DBInstance 'DefaultDB' has MultiAZ value set to false"
+				}
+			]
+		},
+		{
+			"query_name": "RDS With Backup Disabled",
+			"query_id": "8c415f6f-7b90-4a27-a44a-51047e1506f9",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html",
+			"severity": "MEDIUM",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Backup",
+			"description": "Make sure the AWS RDS configuration has automatic backup configured. If the retention period is equal to 0 there is no backup",
+			"description_id": "4ebe02ca",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "d07332065fc148e7e4ee1c26232facab8c71dd184c6a948497edbb5c65eed95c",
+					"line": 487,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.DefaultDB.Properties.BackupRetentionPeriod",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "'Resources.DefaultDB.Properties.BackupRetentionPeriod' is not equal to zero",
+					"actual_value": "'Resources.DefaultDB.Properties.BackupRetentionPeriod' is equal to zero"
+				}
+			]
+		},
+		{
+			"query_name": "RouterTable with Default Routing",
+			"query_id": "4f0908b9-eb66-433f-9145-134274e1e944",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route-table.html",
+			"severity": "MEDIUM",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Insecure Defaults",
+			"description": "NAT gateways are recommended, and not the default route which permits all traffic, in Route Tables.",
+			"description_id": "1f341247",
+			"files": [
+				{
+					"file_name": "cfngoat/eks.yaml",
+					"similarity_id": "fe6e96deefeea77934d1042b19db4e5e8c60de1fa4eec866398d340b345e0200",
+					"line": 167,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.PublicRoute.Properties.DestinationCidrBlock",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.PublicRoute.Properties.DestinationCidrBlock is different from the default value",
+					"actual_value": "Resources.PublicRoute.Properties.DestinationCidrBlock is 0.0.0.0/0"
+				},
+				{
+					"file_name": "cfngoat/eks.yaml",
+					"similarity_id": "bc490ce0e6619a71a2181854502a04945084c46de7fb8f1ec01ab0bff598d053",
+					"line": 165,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.PublicRoute.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.PublicRoute.Properties.NatGatewayId is defined",
+					"actual_value": "Resources.PublicRoute.Properties.NatGatewayId is undefined"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "fea7361bdda672e2faa97d4b5c2a20c63564b2791527d1082d6c77d35d86f56e",
+					"line": 285,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.WebDefaultPublicRoute.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.WebDefaultPublicRoute.Properties.NatGatewayId is defined",
+					"actual_value": "Resources.WebDefaultPublicRoute.Properties.NatGatewayId is undefined"
+				},
+				{
+					"file_name": "cfngoat/eks.yaml",
+					"similarity_id": "780199f1deeffe0867232cf9e3dc3bee82d22e6a4ade30b5fa0309fdfb119998",
+					"line": 185,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.PrivateRoute02.Properties.DestinationCidrBlock",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.PrivateRoute02.Properties.DestinationCidrBlock is different from the default value",
+					"actual_value": "Resources.PrivateRoute02.Properties.DestinationCidrBlock is 0.0.0.0/0"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "01b39581e4b1018e62ed34081fa05b84dbde6c33adc6f9caf40abcd77cf60a78",
+					"line": 287,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.WebDefaultPublicRoute.Properties.DestinationCidrBlock",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.WebDefaultPublicRoute.Properties.DestinationCidrBlock is different from the default value",
+					"actual_value": "Resources.WebDefaultPublicRoute.Properties.DestinationCidrBlock is 0.0.0.0/0"
+				},
+				{
+					"file_name": "cfngoat/eks.yaml",
+					"similarity_id": "0aaf3fc426857fbf4ff9b9ee27e1668ed1c1d033fc1018a5a8bfd409250d3e33",
+					"line": 176,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.PrivateRoute01.Properties.DestinationCidrBlock",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.PrivateRoute01.Properties.DestinationCidrBlock is different from the default value",
+					"actual_value": "Resources.PrivateRoute01.Properties.DestinationCidrBlock is 0.0.0.0/0"
+				}
+			]
+		},
+		{
+			"query_name": "S3 Bucket Should Have Bucket Policy",
+			"query_id": "37fa8188-738b-42c8-bf82-6334ea567738",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html",
+			"severity": "MEDIUM",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Insecure Defaults",
+			"description": "Checks if S3 Bucket has the same name as a Bucket Policy, if it has, S3 Bucket has a Bucket Policy associated",
+			"description_id": "2b429546",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "35b9ecfe5056612388d754d31bf0040ec6e19505fe39ec8b54462959a45a7de5",
+					"line": 971,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.OperationsBucket",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "'Resources.OperationsBucket.Properties.BucketName' or 'Resources.[OperationsBucket]' is the same as an 'AWS::S3::BucketPolicy' Bucket",
+					"actual_value": "'Resources.OperationsBucket.Properties.BucketName' or 'Resources.[OperationsBucket]' is not the same as an 'AWS::S3::BucketPolicy' Bucket"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "408fde91c368d3bcab9e611b56024b5e0d3aa4fd9f6dc8c1e68004b990a1b7ef",
+					"line": 917,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.DataBucket",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "'Resources.DataBucket.Properties.BucketName' or 'Resources.[DataBucket]' is the same as an 'AWS::S3::BucketPolicy' Bucket",
+					"actual_value": "'Resources.DataBucket.Properties.BucketName' or 'Resources.[DataBucket]' is not the same as an 'AWS::S3::BucketPolicy' Bucket"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "3be0505ebbfc51565406e46d76b3a675c79899e5335b0150be53851846ad56a4",
+					"line": 999,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.DataScienceBucket",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "'Resources.DataScienceBucket.Properties.BucketName' or 'Resources.[DataScienceBucket]' is the same as an 'AWS::S3::BucketPolicy' Bucket",
+					"actual_value": "'Resources.DataScienceBucket.Properties.BucketName' or 'Resources.[DataScienceBucket]' is not the same as an 'AWS::S3::BucketPolicy' Bucket"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "f144544af137e445cabcbae17a16ccca4c65f9ea0560edabff451e763bfd82ec",
+					"line": 945,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.FinancialsBucket",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "'Resources.FinancialsBucket.Properties.BucketName' or 'Resources.[FinancialsBucket]' is the same as an 'AWS::S3::BucketPolicy' Bucket",
+					"actual_value": "'Resources.FinancialsBucket.Properties.BucketName' or 'Resources.[FinancialsBucket]' is not the same as an 'AWS::S3::BucketPolicy' Bucket"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "fdb38e6ebf3f1437c7954f1005eb0a8aed59a56cff64f84fc178306325f35308",
+					"line": 1030,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.LogsBucket",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "'Resources.LogsBucket.Properties.BucketName' or 'Resources.[LogsBucket]' is the same as an 'AWS::S3::BucketPolicy' Bucket",
+					"actual_value": "'Resources.LogsBucket.Properties.BucketName' or 'Resources.[LogsBucket]' is not the same as an 'AWS::S3::BucketPolicy' Bucket"
+				}
+			]
+		},
+		{
+			"query_name": "S3 Bucket Without Versioning",
+			"query_id": "a227ec01-f97a-4084-91a4-47b350c1db54",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html",
+			"severity": "MEDIUM",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Observability",
+			"description": "S3 bucket should have versioning enabled",
+			"description_id": "fe2c56b9",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "cea93fecb54e28bcc5c6d7a055c33c47026e38edf684072a9ecf963c4ab18b6b",
+					"line": 949,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.FinancialsBucket.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.FinancialsBucket.Properties.VersioningConfiguration is defined",
+					"actual_value": "Resources.FinancialsBucket.Properties.VersioningConfiguration is undefined"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "b381b7c1c8f7facd677715d3289d7d17fbfe635848bc84b536a8322dd5c12f92",
+					"line": 921,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.DataBucket.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.DataBucket.Properties.VersioningConfiguration is defined",
+					"actual_value": "Resources.DataBucket.Properties.VersioningConfiguration is undefined"
+				}
+			]
+		},
+		{
+			"query_name": "Unrestricted Security Group Ingress",
+			"query_id": "4a1e6b34-1008-4e61-a5f2-1f7c276f8d14",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group-ingress.html",
+			"severity": "MEDIUM",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Networking and Firewall",
+			"description": "AWS Security Group Ingress CIDR should not be open to the world",
+			"description_id": "08256d31",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "9517282fde0dcafcbdff80f3136d184d04548fe48339161f7f4fcbdb4428ba2d",
+					"line": 118,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.WebNodeSG.Properties.SecurityGroupIngress",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.WebNodeSG.Properties.SecurityGroupIngress[0].CidrIp is not open to the world (0.0.0.0/0)",
+					"actual_value": "Resources.WebNodeSG.Properties.SecurityGroupIngress[0].CidrIp is open to the world (0.0.0.0/0)"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "9517282fde0dcafcbdff80f3136d184d04548fe48339161f7f4fcbdb4428ba2d",
+					"line": 118,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.WebNodeSG.Properties.SecurityGroupIngress",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.WebNodeSG.Properties.SecurityGroupIngress[1].CidrIp is not open to the world (0.0.0.0/0)",
+					"actual_value": "Resources.WebNodeSG.Properties.SecurityGroupIngress[1].CidrIp is open to the world (0.0.0.0/0)"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "9517282fde0dcafcbdff80f3136d184d04548fe48339161f7f4fcbdb4428ba2d",
+					"line": 118,
+					"issue_type": "IncorrectValue",
+					"search_key": "Resources.WebNodeSG.Properties.SecurityGroupIngress",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.WebNodeSG.Properties.SecurityGroupIngress[2].CidrIp is not open to the world (0.0.0.0/0)",
+					"actual_value": "Resources.WebNodeSG.Properties.SecurityGroupIngress[2].CidrIp is open to the world (0.0.0.0/0)"
+				}
+			]
+		},
+		{
+			"query_name": "VPC Without Network Firewall",
+			"query_id": "3e293410-d5b8-411f-85fd-7d26294f20c9",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkfirewall-firewall.html#cfn-networkfirewall-firewall-vpcid",
+			"severity": "MEDIUM",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Networking and Firewall",
+			"description": "VPC should have a Network Firewall associated",
+			"description_id": "f090ffd2",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "13d90ed2dba3f7e2c9184a22369c479dcc5f44cea33e07cb5879d69051e68085",
+					"line": 148,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.WebVPC",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "'Resources.WebVPC' is associated with a AWS Network Firewall",
+					"actual_value": "'Resources.WebVPC' is not associated with a AWS Network Firewall"
+				},
+				{
+					"file_name": "cfngoat/eks.yaml",
+					"similarity_id": "2093998ec6fecf2e1395aef56ba732673e141e2d1b0764b2d5e21de8d535f760",
+					"line": 76,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.VPC",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "'Resources.VPC' is associated with a AWS Network Firewall",
+					"actual_value": "'Resources.VPC' is not associated with a AWS Network Firewall"
+				}
+			]
+		},
+		{
+			"query_name": "IAM User With No Group",
+			"query_id": "06933df4-0ea7-461c-b9b5-104d27390e0e",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/quickref-iam.html#scenario-iam-policy",
+			"severity": "LOW",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Access Control",
+			"description": "A IAM user should belong to a group",
+			"description_id": "d7e9b179",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "74817fecc2ce00ded594c92d2ccf81cbcabacbb2981fb4956aebe1c15c8a9e55",
+					"line": 379,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.User.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "'Resources.Properties should contain Groups",
+					"actual_value": "'Resources.Properties' does not contain Groups"
+				}
+			]
+		},
+		{
+			"query_name": "Lambda Function Without Dead Letter Queue",
+			"query_id": "c2eae442-d3ba-4cb1-84ca-1db4f80eae3d",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-function.html#cfn-lambda-function-deadletterconfig",
+			"severity": "LOW",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Insecure Configurations",
+			"description": "AWS Lambda Function should be configured for a Dead Letter Queue(DLQ)",
+			"description_id": "d5d9d047",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "2191f71126c9e06269e4d6088315b0e13eb221d8589f46ecf6f3d26f67c35d51",
+					"line": 880,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.AnalysisLambda.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "'Resources.AnalysisLambda.Properties.DeadLetterConfig' is defined and not null",
+					"actual_value": "'Resources.AnalysisLambda.Properties.DeadLetterConfig' is undefined or null"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "ed373a0619dde3685b73178739f8955f5ab97f02325948b5f12b269e986656cd",
+					"line": 1119,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.CleanBucketFunction.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "'Resources.CleanBucketFunction.Properties.DeadLetterConfig' is defined and not null",
+					"actual_value": "'Resources.CleanBucketFunction.Properties.DeadLetterConfig' is undefined or null"
+				}
+			]
+		},
+		{
+			"query_name": "Lambda Functions Without X-Ray Tracing",
+			"query_id": "9488c451-074e-4cd3-aee3-7db6104f542c",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-lambda-function-tracingconfig.html",
+			"severity": "LOW",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Observability",
+			"description": "AWS Lambda functions should have TracingConfig enabled. For this, property 'tracingConfig.mode' should have the value 'Active'",
+			"description_id": "26afaa67",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "0cf2eddcb443527773376491d510618b0fd33c546d8b24bb0911166f9e2bfdf8",
+					"line": 880,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.AnalysisLambda.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Property 'TracingConfig' is defined",
+					"actual_value": "Property 'TracingConfig' is undefined"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "3eb42f5d37c55c286f2fa06cd0954a7d7368bb0f7e9d1fd7cd05fc3b8514bc13",
+					"line": 1119,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.CleanBucketFunction.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Property 'TracingConfig' is defined",
+					"actual_value": "Property 'TracingConfig' is undefined"
+				}
+			]
+		},
+		{
+			"query_name": "RDS With Deletion Protection Disabled",
+			"query_id": "2c161e58-cb52-454f-abea-6470c37b5e6e",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-deletionprotection",
+			"severity": "LOW",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Backup",
+			"description": "RDS DBInstance should have deletion protection set to true",
+			"description_id": "606a0602",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "6c7d8d50717e4678960e146a22f33abbc3c6170a2a0cb50f82fbc2990d4798ad",
+					"line": 471,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.DefaultDB.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.DefaultDB.Properties.DeletionProtection is defined",
+					"actual_value": "Resources.DefaultDB.Properties.DeletionProtection is undefined"
+				}
+			]
+		},
+		{
+			"query_name": "S3 Bucket Logging Disabled",
+			"query_id": "4552b71f-0a2a-4bc4-92dd-ed7ec1b4674c",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-loggingconfig",
+			"severity": "LOW",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Observability",
+			"description": "Server Access Logging must be enabled on S3 Buckets so that all changes are logged and trackable",
+			"description_id": "ce3728e6",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "b720327035d7bc249fa7a9bb58287e7f9f854e1c6f7de72a2fb0829bbbd6af70",
+					"line": 975,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.OperationsBucket.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "'Resources.OperationsBucket.Properties' has property 'LoggingConfiguration'",
+					"actual_value": "'Resources.OperationsBucket.Properties' doesn't have property 'LoggingConfiguration'"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "09f5afe1cc016224f3e57ad72a8518da4cb38ff3b6d84398e00ea23cdfd038dd",
+					"line": 949,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.FinancialsBucket.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "'Resources.FinancialsBucket.Properties' has property 'LoggingConfiguration'",
+					"actual_value": "'Resources.FinancialsBucket.Properties' doesn't have property 'LoggingConfiguration'"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "8ee6f90533fa0070bda4cdb2a2e25cb040c4ae5424aaca2b7c18190d89a34f6e",
+					"line": 1034,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.LogsBucket.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "'Resources.LogsBucket.Properties' has property 'LoggingConfiguration'",
+					"actual_value": "'Resources.LogsBucket.Properties' doesn't have property 'LoggingConfiguration'"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "927926dca67ddb484e4fa5cf6ddabc917294f9bb99087e2212981367b613479b",
+					"line": 921,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.DataBucket.Properties",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "'Resources.DataBucket.Properties' has property 'LoggingConfiguration'",
+					"actual_value": "'Resources.DataBucket.Properties' doesn't have property 'LoggingConfiguration'"
+				}
+			]
+		},
+		{
+			"query_name": "Security Group Rule Without Description",
+			"query_id": "5e6c9c68-8a82-408e-8749-ddad78cbb9c5",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html",
+			"severity": "LOW",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Best Practices",
+			"description": "AWS Security Group Rule should have description defined",
+			"description_id": "f7c62b11",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "3bb3df6e91b1955028f41d1f0fc87d0eeb47431c690331e690eb313abfda0f58",
+					"line": 604,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.DefaultSG.Properties.SecurityGroupIngress",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.DefaultSG.Properties.SecurityGroupIngress[0].Description is set",
+					"actual_value": "Resources.DefaultSG.Properties.SecurityGroupIngress[0].Description is undefined"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "f8c977d5257f94be4eeea36a3d0e8fe2a389c0b8f5c363de1a7bb1ce3e8ae4e9",
+					"line": 118,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.WebNodeSG.Properties.SecurityGroupIngress",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.WebNodeSG.Properties.SecurityGroupIngress[0].Description is set",
+					"actual_value": "Resources.WebNodeSG.Properties.SecurityGroupIngress[0].Description is undefined"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "f8c977d5257f94be4eeea36a3d0e8fe2a389c0b8f5c363de1a7bb1ce3e8ae4e9",
+					"line": 118,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.WebNodeSG.Properties.SecurityGroupIngress",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.WebNodeSG.Properties.SecurityGroupIngress[1].Description is set",
+					"actual_value": "Resources.WebNodeSG.Properties.SecurityGroupIngress[1].Description is undefined"
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "f8c977d5257f94be4eeea36a3d0e8fe2a389c0b8f5c363de1a7bb1ce3e8ae4e9",
+					"line": 118,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.WebNodeSG.Properties.SecurityGroupIngress",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.WebNodeSG.Properties.SecurityGroupIngress[2].Description is set",
+					"actual_value": "Resources.WebNodeSG.Properties.SecurityGroupIngress[2].Description is undefined"
+				}
+			]
+		},
+		{
+			"query_name": "Shield Advanced Not In Use",
+			"query_id": "ad7444cf-817a-4765-a79e-2145f7981faf",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-fms-policy.html",
+			"severity": "LOW",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Networking and Firewall",
+			"description": "AWS Shield Advanced should be used for Amazon Route 53 hosted zone, AWS Global Accelerator accelerator, Elastic IP Address, Elastic Load Balancing, and Amazon CloudFront Distribution to protect these resources against robust DDoS attacks",
+			"description_id": "ae5e799c",
+			"files": [
+				{
+					"file_name": "cfngoat/eks.yaml",
+					"similarity_id": "e3cca99366c52680492f830e522a8abf4549f4782e277c263a89e0dabc892312",
+					"line": 189,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.NatGatewayEIP1",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.NatGatewayEIP1 has shield advanced associated",
+					"actual_value": "Resources.NatGatewayEIP1 does not have shield advanced associated"
+				},
+				{
+					"file_name": "cfngoat/eks.yaml",
+					"similarity_id": "e2f3c26b95e07fecfeb703dab486bae91696b3c2fa390d77da617e3b146edee5",
+					"line": 203,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.NatGatewayEIP2",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.NatGatewayEIP2 has shield advanced associated",
+					"actual_value": "Resources.NatGatewayEIP2 does not have shield advanced associated"
+				}
+			]
+		},
+		{
+			"query_name": "VPC FlowLogs Disabled",
+			"query_id": "f6d299d2-21eb-41cc-b1e1-fe12d857500b",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-flowlog.html",
+			"severity": "LOW",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Observability",
+			"description": "VPC hasn't got any FlowLog associated",
+			"description_id": "0fb02ca5",
+			"files": [
+				{
+					"file_name": "cfngoat/eks.yaml",
+					"similarity_id": "0549ca82e1a096e6e4d4d04cffef9ad81f018e2ac457c7fd6eb07ede21173490",
+					"line": 76,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.VPC",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.VPC has a FlowLogs resource associated",
+					"actual_value": "Resources.VPC doesn't have a FlowLogs resource associated"
+				}
+			]
+		},
+		{
+			"query_name": "EC2 Not EBS Optimized",
+			"query_id": "8dd0ff1f-0da4-48df-9bb3-7f338ae36a40",
+			"query_url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html#cfn-ec2-instance-ebsoptimized",
+			"severity": "INFO",
+			"platform": "CloudFormation",
+			"cloud_provider": "AWS",
+			"category": "Best Practices",
+			"description": "It's considered a best practice for an EC2 instance to use an EBS optimized instance. This provides the best performance for your EBS volumes by minimizing contention between Amazon EBS I/O and other traffic from your instance",
+			"description_id": "4d5e32ad",
+			"files": [
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "604a7cb6c16644cd66e22b5c7115e33e42925269cd17c03ddfd8292f6aba7756",
+					"line": 692,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.DBAppInstance.Properties.EbsOptimized",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.DBAppInstance.Properties to have EbsOptimized set to true.",
+					"actual_value": "Resources.DBAppInstance.Properties doesn't have EbsOptimized set to true."
+				},
+				{
+					"file_name": "cfngoat/cfngoat.yaml",
+					"similarity_id": "4362545bee9e0ec117f56fb8b9b329e155ef664d73e75a7a44e5b4261965ac97",
+					"line": 33,
+					"issue_type": "MissingAttribute",
+					"search_key": "Resources.EC2Instance.Properties.EbsOptimized",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "Resources.EC2Instance.Properties to have EbsOptimized set to true.",
+					"actual_value": "Resources.EC2Instance.Properties doesn't have EbsOptimized set to true."
+				}
+			]
+		}
+	]
+}

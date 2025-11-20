@@ -1,0 +1,92 @@
+{
+ "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+ "version": "2.1.0",
+ "runs": [
+  {
+   "tool": {
+    "driver": {
+     "name": "2ms",
+     "semanticVersion": "v4.7.0",
+     "rules": [
+      {
+       "id": "aws-access-token",
+       "fullDescription": {
+        "text": "Identified a pattern that may indicate AWS credentials, risking unauthorized cloud resource access and data breaches on AWS platforms."
+       }
+      },
+      {
+       "id": "generic-api-key",
+       "fullDescription": {
+        "text": "Detected a Generic API Key, potentially exposing access to various services and sensitive operations."
+       }
+      }
+     ]
+    }
+   },
+   "results": [
+    {
+     "message": {
+      "text": "aws-access-token has detected secret for file cfngoat/cfngoat.yaml."
+     },
+     "ruleId": "aws-access-token",
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "cfngoat/cfngoat.yaml"
+        },
+        "region": {
+         "startLine": 69,
+         "startColumn": 36,
+         "endLine": 69,
+         "endColumn": 55,
+         "snippet": {
+          "text": "AKIAIOSFODNN7EXAMAAA",
+          "properties": {
+           "lineContent": "export AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMAAA"
+          }
+         }
+        }
+       }
+      }
+     ],
+     "properties": {
+      "cvssScore": 10,
+      "validationStatus": ""
+     }
+    },
+    {
+     "message": {
+      "text": "generic-api-key has detected secret for file cfngoat/cfngoat.yaml."
+     },
+     "ruleId": "generic-api-key",
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "cfngoat/cfngoat.yaml"
+        },
+        "region": {
+         "startLine": 70,
+         "startColumn": 18,
+         "endLine": 70,
+         "endColumn": 79,
+         "snippet": {
+          "text": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMAAAKEY",
+          "properties": {
+           "lineContent": "export AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMAAAKEY"
+          }
+         }
+        }
+       }
+      }
+     ],
+     "properties": {
+      "cvssScore": 8.2,
+      "validationStatus": ""
+     }
+    }
+   ]
+  }
+ ]
+}

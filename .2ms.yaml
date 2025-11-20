@@ -1,0 +1,28 @@
+# 2ms Configuration for NodeGoat Scanning
+log-level: info
+stdout-format: yaml
+report-path:
+  - reports/2ms-report.yaml
+  - reports/2ms-report.json
+  - reports/2ms-report.sarif
+
+# Filesystem scanning configuration
+filesystem:
+  path: ./NodeGoat
+  ignore-pattern:
+    - "*.log"
+    - "node_modules/**"
+    - ".git/**"
+    - "dist/**"
+    - "build/**"
+    - "*.min.js"
+    - "*.min.css"
+    - "coverage/**"
+
+# Git scanning configuration (will be used with git command)
+# Note: Git-specific settings are passed via CLI flags
+
+# Global settings
+max-target-megabytes: 10
+validate: false  # Set to true if you want to validate secrets (requires API access)
+

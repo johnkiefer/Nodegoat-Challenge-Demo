@@ -1,0 +1,29 @@
+totalitemsscanned: 157
+totalsecretsfound: 2
+results:
+  8cb19cecce24e5e561f33f6e9b2ec2fd26159bc0:
+    - id: 8cb19cecce24e5e561f33f6e9b2ec2fd26159bc0
+      source: git show 1957f9ae0fc0221b97c4dcac314a452d4f1c44ee:config/env/all.js
+      ruleid: authenticated-url
+      startline: 6
+      endline: 6
+      linecontent: "    db = process.env.NODE_ENV === 'test' ? 'mongodb://localhost:27017/nodegoat' : 'mongodb://nodegoat:owasp@nodegoat-cluster-shard-00-00.zkkl5.mongodb.net:27017,nodegoat-cluster-shard-00-01.zkkl5.mongodb.net:27017,nodegoat-cluster-shard-00-02.zkkl5.mongodb.net:27017/nodegoat?ssl=true&replicaSet=atlas-qajmlr-shard-0&authSource=admin&retryWrites=true&w=majo"
+      startcolumn: 91
+      endcolumn: 363
+      value: nodegoat:owasp
+      validationstatus: ""
+      ruledescription: Identify username:password inside URLS
+      cvssscore: 8.2
+  87f58a10625107ed74c7cc384c2ca9907c391716:
+    - id: 87f58a10625107ed74c7cc384c2ca9907c391716
+      source: git show 5ab008832d7e3f372a758015b6a1a34471f20151:config/env/all.js
+      ruleid: authenticated-url
+      startline: 6
+      endline: 6
+      linecontent: "    db = process.env.NODE_ENV === 'test' ? 'mongodb://localhost:27017/nodegoat' : 'mongodb://nodegoat:owasp@nodegoat-cluster-shard-00-00.zkkl5.mongodb.net:27017,nodegoat-cluster-shard-00-01.zkkl5.mongodb.net:27017,nodegoat-cluster-shard-00-02.zkkl5.mongodb.net:27017/nodegoat?ssl=true&replicaSet=atlas-qajmlr-shard-0&authSource=admin&retryWrites=true&w=majo"
+      startcolumn: 91
+      endcolumn: 363
+      value: nodegoat:owasp
+      validationstatus: ""
+      ruledescription: Identify username:password inside URLS
+      cvssscore: 8.2
