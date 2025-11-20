@@ -50,11 +50,11 @@ jobs:
           source_path: "${{ steps.find-files.outputs.files }}"
           filter_mode: added
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-pr-review
+          reporter: github-pr-check
           level: warning
           fail_on_error: false
           folders_to_ignore: "node_modules,dist,build"
-          reviewdog_flags: "-max-annotations=50"
+          reviewdog_flags: "-max-annotations=50 -tee"
 
       - name: Find all supported files in NodeGoat (for push)
         if: github.event_name == 'push'
@@ -88,11 +88,11 @@ jobs:
           source_path: "${{ steps.find-files-push.outputs.files }}"
           filter_mode: nofilter
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-pr-check
-          level: error
+          reporter: github-check
+          level: warning
           fail_on_error: false
           folders_to_ignore: "node_modules,dist,build"
-          reviewdog_flags: "-max-annotations=20"
+          reviewdog_flags: "-max-annotations=50 -tee"
 
       - name: Save Vorpal scan summary
         if: always()
