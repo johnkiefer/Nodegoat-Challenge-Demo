@@ -94,15 +94,48 @@ jobs:
           folders_to_ignore: "node_modules,dist,build"
           reviewdog_flags: "-max-annotations=50 -tee"
 
-      - name: Save Vorpal scan summary
+      - name: Locate and upload Vorpal output files
         if: always()
         run: |
           echo "## Vorpal Scan Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "✅ Scan completed. Check the following for results:" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "1. **PR Comments**: Up to 50 annotations posted as PR comments" >> $GITHUB_STEP_SUMMARY
+          echo "1. **PR Checks**: Up to 50 annotations in PR Checks section" >> $GITHUB_STEP_SUMMARY
           echo "2. **Actions Logs**: Full scan output in the workflow logs below" >> $GITHUB_STEP_SUMMARY
           echo "3. **Step Output**: Expand the 'Vorpal with reviewdog' step to see all findings" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "📊 **Note**: If you see 'Too many results' warning, check the Actions console logs for complete results." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Looking for output files..." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          # Check for common reviewdog/Vorpal output locations
+          if [ -f "/github/workspace/result.errorformat" ]; then
+            echo "✅ Found: /github/workspace/result.errorformat" >> $GITHUB_STEP_SUMMARY
+            echo "File size: $(wc -l < /github/workspace/result.errorformat) lines" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "⚠️  /github/workspace/result.errorformat not found" >> $GITHUB_STEP_SUMMARY
+          fi
+          if [ -f "./result.errorformat" ]; then
+            echo "✅ Found: ./result.errorformat" >> $GITHUB_STEP_SUMMARY
+            echo "File size: $(wc -l < ./result.errorformat) lines" >> $GITHUB_STEP_SUMMARY
+          fi
+          # List any .errorformat files
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Searching for errorformat files..." >> $GITHUB_STEP_SUMMARY
+          find . -name "*.errorformat" -o -name "result.*" 2>/dev/null | head -10 || echo "No errorformat files found" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Workspace contents:" >> $GITHUB_STEP_SUMMARY
+          ls -la /github/workspace/ 2>/dev/null | head -20 || echo "Cannot access /github/workspace/" >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload Vorpal output files as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vorpal-output-files
+          path: |
+            result.errorformat
+            /github/workspace/result.errorformat
+            **/*.errorformat
+          if-no-files-found: ignore
+          retention-days: 7
