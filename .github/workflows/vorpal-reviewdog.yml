@@ -19,27 +19,35 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Find all JavaScript files in NodeGoat
-        id: find-js-files
+      - name: Find all supported files in NodeGoat
+        id: find-files
         run: |
-          # Find all .js files in NodeGoat directory recursively (excluding common build/dependency folders)
-          JS_FILES=$(find NodeGoat -type f -name "*.js" \
+          # Find all supported file types in NodeGoat (JS, Java, C#, Python, Go, etc.)
+          # Vorpal supports: .js, .java, .cs, .py, .go
+          FILES=$(find NodeGoat -type f \( \
+            -name "*.js" -o \
+            -name "*.java" -o \
+            -name "*.cs" -o \
+            -name "*.py" -o \
+            -name "*.go" \
+          \) \
             -not -path "*/node_modules/*" \
             -not -path "*/dist/*" \
             -not -path "*/build/*" \
             -not -path "*/.git/*" \
             -not -path "*/coverage/*" \
+            -not -path "*/vendor/*" \
             | sort | tr '\n' ',' | sed 's/,$//')
-          echo "files=$JS_FILES" >> $GITHUB_OUTPUT
-          echo "Found JavaScript files:"
-          echo "$JS_FILES" | tr ',' '\n' | while read file; do echo "  - $file"; done
-          echo "Total files: $(echo "$JS_FILES" | tr ',' '\n' | wc -l)"
+          echo "files=$FILES" >> $GITHUB_OUTPUT
+          echo "Found files to scan:"
+          echo "$FILES" | tr ',' '\n' | while read file; do echo "  - $file"; done
+          echo "Total files: $(echo "$FILES" | tr ',' '\n' | wc -l)"
 
-      - name: Vorpal with reviewdog (scan NodeGoat JS files in PR)
-        if: github.event_name == 'pull_request' && steps.find-js-files.outputs.files != ''
+      - name: Vorpal with reviewdog (scan all NodeGoat files in PR)
+        if: github.event_name == 'pull_request' && steps.find-files.outputs.files != ''
         uses: checkmarx/vorpal-reviewdog-github-action@v1.2.0
         with:
-          source_path: "${{ steps.find-js-files.outputs.files }}"
+          source_path: "${{ steps.find-files.outputs.files }}"
           filter_mode: added
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
@@ -47,28 +55,36 @@ jobs:
           fail_on_error: false
           folders_to_ignore: "node_modules,dist,build"
 
-      - name: Find all JavaScript files in NodeGoat (for push)
+      - name: Find all supported files in NodeGoat (for push)
         if: github.event_name == 'push'
-        id: find-js-files-push
+        id: find-files-push
         run: |
-          # Find all .js files in NodeGoat directory recursively (excluding common build/dependency folders)
-          JS_FILES=$(find NodeGoat -type f -name "*.js" \
+          # Find all supported file types in NodeGoat (JS, Java, C#, Python, Go, etc.)
+          # Vorpal supports: .js, .java, .cs, .py, .go
+          FILES=$(find NodeGoat -type f \( \
+            -name "*.js" -o \
+            -name "*.java" -o \
+            -name "*.cs" -o \
+            -name "*.py" -o \
+            -name "*.go" \
+          \) \
             -not -path "*/node_modules/*" \
             -not -path "*/dist/*" \
             -not -path "*/build/*" \
             -not -path "*/.git/*" \
             -not -path "*/coverage/*" \
+            -not -path "*/vendor/*" \
             | sort | tr '\n' ',' | sed 's/,$//')
-          echo "files=$JS_FILES" >> $GITHUB_OUTPUT
-          echo "Found JavaScript files:"
-          echo "$JS_FILES" | tr ',' '\n' | while read file; do echo "  - $file"; done
-          echo "Total files: $(echo "$JS_FILES" | tr ',' '\n' | wc -l)"
+          echo "files=$FILES" >> $GITHUB_OUTPUT
+          echo "Found files to scan:"
+          echo "$FILES" | tr ',' '\n' | while read file; do echo "  - $file"; done
+          echo "Total files: $(echo "$FILES" | tr ',' '\n' | wc -l)"
 
       - name: Vorpal scan all NodeGoat files (on push)
-        if: github.event_name == 'push' && steps.find-js-files-push.outputs.files != ''
+        if: github.event_name == 'push' && steps.find-files-push.outputs.files != ''
         uses: checkmarx/vorpal-reviewdog-github-action@v1.2.0
         with:
-          source_path: "${{ steps.find-js-files-push.outputs.files }}"
+          source_path: "${{ steps.find-files-push.outputs.files }}"
           filter_mode: nofilter
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-check
