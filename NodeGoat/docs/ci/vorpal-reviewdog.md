@@ -32,6 +32,32 @@ This repository includes a CI workflow (`.github/workflows/vorpal-reviewdog.yml`
 
 ### Running locally
 
+#### Option 1: Using Docker Desktop (Recommended)
+
+The easiest way to run Vorpal + reviewdog locally is using Docker Desktop:
+
+```bash
+# Make sure Docker Desktop is running, then:
+./scan-vorpal-local.sh [SCAN_DIR] [OUTPUT_DIR]
+
+# Example: Scan NodeGoat directory
+./scan-vorpal-local.sh NodeGoat vorpal-reports
+
+# Example: Scan current directory
+./scan-vorpal-local.sh . ./reports
+```
+
+The script will:
+1. Check if Docker is running
+2. Pull the latest reviewdog Docker image
+3. Attempt to use Vorpal Docker image (if available)
+4. Run the scan and save results to the output directory
+5. Process results through reviewdog with local reporter
+
+**Note:** Vorpal may not be available as a public Docker image. If the Docker method doesn't work, use Option 2 or the GitHub Action.
+
+#### Option 2: Manual Installation
+
 ```bash
 # Install dependencies
 npm install -g vorpal
@@ -42,6 +68,35 @@ vorpal analyze --output=vorpal-report.json
 
 # Run reviewdog in local (reporter=local)
 cat vorpal-report.json | ./bin/reviewdog -f=vorpal -reporter=local
+```
+
+#### Option 3: Using Docker Compose
+
+You can also create a `docker-compose.yml` for a more structured setup:
+
+```yaml
+version: '3.8'
+services:
+  vorpal:
+    image: checkmarx/vorpal:latest
+    volumes:
+      - .:/workspace
+    working_dir: /workspace
+    command: vorpal analyze --source-path "NodeGoat" --output "vorpal-report.json"
+  
+  reviewdog:
+    image: reviewdog/reviewdog:latest
+    volumes:
+      - .:/workspace
+    working_dir: /workspace
+    command: -f=rdjson -reporter=local < vorpal-report.json
+    depends_on:
+      - vorpal
+```
+
+Then run:
+```bash
+docker-compose up
 ```
 
 ### Forcing a CI run
