@@ -44,5 +44,9 @@ vorpal analyze --output=vorpal-report.json
 cat vorpal-report.json | ./bin/reviewdog -f=vorpal -reporter=local
 ```
 
+### Forcing a CI run
+
+Open a short-lived branch, make any documentation-only tweak, and open a pull request. The `Vorpal Code Analysis` workflow triggers on every PR targeting `main`, so even a whitespace-only doc change is enough to kick off a fresh scan.
+
 Keep the workflow updated if Vorpal changes its output format or if the reviewdog CLI requires different flags.
 
