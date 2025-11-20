@@ -27,13 +27,11 @@ jobs:
           cache-dependency-path: |
             NodeGoat/package-lock.json
 
-      - name: Install Vorpal CLI
-        run: npm install -g vorpal
-
       - name: Run Vorpal analysis on NodeGoat
         working-directory: ./NodeGoat
         run: |
-          vorpal analyze --output=../vorpal-report.json
+          npm install --no-save @checkmarx/vorpal
+          npx vorpal analyze --output=../vorpal-report.json
 
       - name: Install reviewdog
         env:
