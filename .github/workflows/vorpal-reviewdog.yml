@@ -54,7 +54,7 @@ jobs:
           level: error
           fail_on_error: false
           folders_to_ignore: "node_modules,dist,build"
-          reviewdog_flags: "-max-annotations=50"
+          reviewdog_flags: "-max-annotations=20 -filter-mode=added"
 
       - name: Find all supported files in NodeGoat (for push)
         if: github.event_name == 'push'
@@ -92,7 +92,7 @@ jobs:
           level: error
           fail_on_error: false
           folders_to_ignore: "node_modules,dist,build"
-          reviewdog_flags: "-max-annotations=50"
+          reviewdog_flags: "-max-annotations=20"
 
       - name: Upload Vorpal scan report
         if: always()
