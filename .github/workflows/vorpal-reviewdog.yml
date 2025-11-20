@@ -54,7 +54,7 @@ jobs:
           level: error
           fail_on_error: false
           folders_to_ignore: "node_modules,dist,build"
-          reviewdog_flags: "-max-annotations=10"
+          reviewdog_flags: "-max-annotations=50"
 
       - name: Find all supported files in NodeGoat (for push)
         if: github.event_name == 'push'
