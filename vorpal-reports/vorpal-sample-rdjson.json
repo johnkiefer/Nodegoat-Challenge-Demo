@@ -1,0 +1,178 @@
+{
+  "source": {
+    "name": "vorpal",
+    "url": "https://github.com/checkmarx/vorpal"
+  },
+  "severity": "ERROR",
+  "diagnostics": [
+    {
+      "message": "A1:2017-Injection - Server-Side JavaScript (SSJS) Injection: Use of eval() with user-controlled input",
+      "location": {
+        "path": "NodeGoat/app/routes/contributions.js",
+        "range": {
+          "start": {
+            "line": 32,
+            "column": 20
+          },
+          "end": {
+            "line": 32,
+            "column": 40
+          }
+        }
+      },
+      "severity": "ERROR",
+      "code": {
+        "value": "A1:2017-Injection",
+        "url": "https://owasp.org/www-project-top-ten/2017/A1_2017-Injection"
+      },
+      "source": {
+        "name": "vorpal"
+      }
+    },
+    {
+      "message": "A1:2017-Injection - Server-Side JavaScript (SSJS) Injection: Use of eval() with user-controlled input",
+      "location": {
+        "path": "NodeGoat/app/routes/contributions.js",
+        "range": {
+          "start": {
+            "line": 33,
+            "column": 22
+          },
+          "end": {
+            "line": 33,
+            "column": 42
+          }
+        }
+      },
+      "severity": "ERROR",
+      "code": {
+        "value": "A1:2017-Injection",
+        "url": "https://owasp.org/www-project-top-ten/2017/A1_2017-Injection"
+      },
+      "source": {
+        "name": "vorpal"
+      }
+    },
+    {
+      "message": "A1:2017-Injection - Server-Side JavaScript (SSJS) Injection: Use of eval() with user-controlled input",
+      "location": {
+        "path": "NodeGoat/app/routes/contributions.js",
+        "range": {
+          "start": {
+            "line": 34,
+            "column": 18
+          },
+          "end": {
+            "line": 34,
+            "column": 35
+          }
+        }
+      },
+      "severity": "ERROR",
+      "code": {
+        "value": "A1:2017-Injection",
+        "url": "https://owasp.org/www-project-top-ten/2017/A1_2017-Injection"
+      },
+      "source": {
+        "name": "vorpal"
+      }
+    },
+    {
+      "message": "A3:2017-Sensitive Data Exposure: Hardcoded secret or password in source code",
+      "location": {
+        "path": "NodeGoat/config/config.js",
+        "range": {
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 50,
+            "column": 1
+          }
+        }
+      },
+      "severity": "WARNING",
+      "code": {
+        "value": "A3:2017-SensitiveDataExposure",
+        "url": "https://owasp.org/www-project-top-ten/2017/A3_2017-Sensitive_Data_Exposure"
+      },
+      "source": {
+        "name": "vorpal"
+      }
+    },
+    {
+      "message": "A5:2017-Broken Access Control: Missing authentication check on sensitive operation",
+      "location": {
+        "path": "NodeGoat/app/routes/benefits.js",
+        "range": {
+          "start": {
+            "line": 15,
+            "column": 1
+          },
+          "end": {
+            "line": 25,
+            "column": 1
+          }
+        }
+      },
+      "severity": "WARNING",
+      "code": {
+        "value": "A5:2017-BrokenAccessControl",
+        "url": "https://owasp.org/www-project-top-ten/2017/A5_2017-Broken_Access_Control"
+      },
+      "source": {
+        "name": "vorpal"
+      }
+    },
+    {
+      "message": "A7:2017-Cross-Site Scripting (XSS): Unsanitized user input rendered in HTML",
+      "location": {
+        "path": "NodeGoat/app/routes/memories.js",
+        "range": {
+          "start": {
+            "line": 45,
+            "column": 15
+          },
+          "end": {
+            "line": 45,
+            "column": 30
+          }
+        }
+      },
+      "severity": "ERROR",
+      "code": {
+        "value": "A7:2017-XSS",
+        "url": "https://owasp.org/www-project-top-ten/2017/A7_2017-Cross-Site_Scripting_(XSS)"
+      },
+      "source": {
+        "name": "vorpal"
+      }
+    },
+    {
+      "message": "A9:2017-Using Components with Known Vulnerabilities: Outdated dependency with known security vulnerability",
+      "location": {
+        "path": "NodeGoat/package.json",
+        "range": {
+          "start": {
+            "line": 15,
+            "column": 1
+          },
+          "end": {
+            "line": 20,
+            "column": 1
+          }
+        }
+      },
+      "severity": "WARNING",
+      "code": {
+        "value": "A9:2017-KnownVulnerabilities",
+        "url": "https://owasp.org/www-project-top-ten/2017/A9_2017-Using_Components_with_Known_Vulnerabilities"
+      },
+      "source": {
+        "name": "vorpal"
+      }
+    }
+  ]
+}
+
