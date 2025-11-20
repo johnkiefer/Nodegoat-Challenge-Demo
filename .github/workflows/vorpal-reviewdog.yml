@@ -43,12 +43,12 @@ jobs:
           echo "$FILES" | tr ',' '\n' | while read file; do echo "  - $file"; done
           echo "Total files: $(echo "$FILES" | tr ',' '\n' | wc -l)"
 
-      - name: Vorpal with reviewdog (scan all NodeGoat files in PR)
+      - name: Vorpal with reviewdog (full scan of all NodeGoat files in PR)
         if: github.event_name == 'pull_request' && steps.find-files.outputs.files != ''
         uses: checkmarx/vorpal-reviewdog-github-action@v1.2.0
         with:
           source_path: "${{ steps.find-files.outputs.files }}"
-          filter_mode: added
+          filter_mode: nofilter
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-check
           level: warning
