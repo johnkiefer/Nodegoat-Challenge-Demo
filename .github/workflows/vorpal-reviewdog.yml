@@ -46,6 +46,8 @@ jobs:
       - name: Vorpal with reviewdog (full scan of all NodeGoat files in PR)
         if: github.event_name == 'pull_request' && steps.find-files.outputs.files != ''
         uses: checkmarx/vorpal-reviewdog-github-action@v1.2.0
+        id: vorpal-pr
+        continue-on-error: true
         with:
           source_path: "${{ steps.find-files.outputs.files }}"
           filter_mode: nofilter
@@ -54,7 +56,25 @@ jobs:
           level: warning
           fail_on_error: false
           folders_to_ignore: "node_modules,dist,build"
-          reviewdog_flags: "-max-annotations=50 -tee"
+          reviewdog_flags: "-max-annotations=50 -tee -reporter=github-pr-check"
+
+      - name: Debug Vorpal output (PR)
+        if: github.event_name == 'pull_request' && always()
+        run: |
+          echo "=== Vorpal Step Exit Code ==="
+          echo "Exit code: ${{ steps.vorpal-pr.outcome }}"
+          echo ""
+          echo "=== Checking for Vorpal output files ==="
+          find . -type f -name "*.json" -o -name "*.xml" -o -name "*.sarif" -o -name "*.errorformat" \
+            -not -path "*/node_modules/*" \
+            -not -path "*/KICS/*" \
+            -not -path "*/.git/*" 2>/dev/null | head -20
+          echo ""
+          echo "=== Checking reviewdog output ==="
+          ls -la /tmp/ 2>/dev/null | grep -i reviewdog || echo "No reviewdog temp files found"
+          echo ""
+          echo "=== Current directory contents ==="
+          ls -la . | head -20
 
       - name: Find all supported files in NodeGoat (for push)
         if: github.event_name == 'push'
@@ -94,42 +114,52 @@ jobs:
           folders_to_ignore: "node_modules,dist,build"
           reviewdog_flags: "-max-annotations=50 -tee"
 
-      - name: Locate and upload Vorpal output files
+      - name: Capture Vorpal raw output
         if: always()
         run: |
           echo "## Vorpal Scan Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "✅ Scan completed. Check the following for results:" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "1. **PR Checks**: Up to 50 annotations in PR Checks section" >> $GITHUB_STEP_SUMMARY
-          echo "2. **Actions Logs**: Full scan output in the workflow logs below" >> $GITHUB_STEP_SUMMARY
-          echo "3. **Step Output**: Expand the 'Vorpal with reviewdog' step to see all findings" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "📊 **Note**: If you see 'Too many results' warning, check the Actions console logs for complete results." >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### Looking for output files..." >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          # Check for common reviewdog/Vorpal output locations
-          if [ -f "/github/workspace/result.errorformat" ]; then
-            echo "✅ Found: /github/workspace/result.errorformat" >> $GITHUB_STEP_SUMMARY
-            echo "File size: $(wc -l < /github/workspace/result.errorformat) lines" >> $GITHUB_STEP_SUMMARY
+          
+          # Check if Vorpal actually ran and found issues
+          echo "### Scan Status" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.vorpal-pr.outcome }}" = "success" ] || [ "${{ steps.vorpal-pr.outcome }}" = "failure" ]; then
+            echo "✅ Vorpal scan completed" >> $GITHUB_STEP_SUMMARY
           else
-            echo "⚠️  /github/workspace/result.errorformat not found" >> $GITHUB_STEP_SUMMARY
+            echo "⚠️ Vorpal scan may not have run" >> $GITHUB_STEP_SUMMARY
           fi
-          if [ -f "./result.errorformat" ]; then
-            echo "✅ Found: ./result.errorformat" >> $GITHUB_STEP_SUMMARY
-            echo "File size: $(wc -l < ./result.errorformat) lines" >> $GITHUB_STEP_SUMMARY
-          fi
-          # List any .errorformat files (excluding problematic directories)
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### Searching for errorformat files..." >> $GITHUB_STEP_SUMMARY
-          find . -name "*.errorformat" -o -name "result.*" \
-            -not -path "*/KICS/*" \
+          
+          echo "### Where to Find Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "1. **PR Checks Tab**: Click on 'Checks' in your PR to see annotations" >> $GITHUB_STEP_SUMMARY
+          echo "2. **Actions Logs**: Expand the 'Vorpal with reviewdog' step below to see full console output" >> $GITHUB_STEP_SUMMARY
+          echo "3. **Console Output**: The \`-tee\` flag ensures all findings are printed to console" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          echo "### Important Notes" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "📊 **Vorpal Output**: Vorpal outputs directly to reviewdog, which posts annotations to GitHub." >> $GITHUB_STEP_SUMMARY
+          echo "📊 **No File Output**: The action doesn't create a separate report file - results are in PR annotations and console logs." >> $GITHUB_STEP_SUMMARY
+          echo "📊 **If No Issues Found**: Vorpal may not detect the specific vulnerability patterns in NodeGoat." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Check for any output files that might have been created
+          echo "### Output Files Check" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          OUTPUT_FILES=$(find . -type f \( -name "*.json" -o -name "*.xml" -o -name "*.sarif" -o -name "*.errorformat" \) \
             -not -path "*/node_modules/*" \
-            -not -path "*/.git/*" 2>/dev/null | head -10 || echo "No errorformat files found" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### Workspace contents:" >> $GITHUB_STEP_SUMMARY
-          ls -la /github/workspace/ 2>/dev/null | head -20 || echo "Cannot access /github/workspace/" >> $GITHUB_STEP_SUMMARY
+            -not -path "*/KICS/*" \
+            -not -path "*/.git/*" \
+            -not -path "*/kics-reports/*" 2>/dev/null | head -10)
+          
+          if [ -n "$OUTPUT_FILES" ]; then
+            echo "Found potential output files:" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            echo "$OUTPUT_FILES" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No output files found (this is normal - Vorpal outputs to reviewdog, not files)" >> $GITHUB_STEP_SUMMARY
+          fi
 
       - name: Upload Vorpal output files as artifact
         if: always()
