@@ -133,15 +133,38 @@ jobs:
 
       - name: Upload Vorpal output files as artifact
         if: always()
+        run: |
+          # Create a directory for artifacts
+          mkdir -p vorpal-artifacts
+          
+          # Copy any found errorformat files (if they exist)
+          if [ -f "/github/workspace/result.errorformat" ]; then
+            cp /github/workspace/result.errorformat vorpal-artifacts/ 2>/dev/null || true
+          fi
+          if [ -f "./result.errorformat" ]; then
+            cp ./result.errorformat vorpal-artifacts/ 2>/dev/null || true
+          fi
+          
+          # Also check in common reviewdog output locations
+          if [ -f "$HOME/result.errorformat" ]; then
+            cp "$HOME/result.errorformat" vorpal-artifacts/ 2>/dev/null || true
+          fi
+          
+          # List what we found
+          echo "Files found for upload:"
+          ls -la vorpal-artifacts/ 2>/dev/null || echo "No files found"
+          
+          # Create a summary file
+          echo "Vorpal scan artifacts" > vorpal-artifacts/README.txt
+          echo "Generated: $(date)" >> vorpal-artifacts/README.txt
+          echo "" >> vorpal-artifacts/README.txt
+          echo "If result.errorformat exists, it contains the reviewdog-formatted output." >> vorpal-artifacts/README.txt
+
+      - name: Upload artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: vorpal-output-files
-          path: |
-            result.errorformat
-            /github/workspace/result.errorformat
+          path: vorpal-artifacts/
           if-no-files-found: ignore
           retention-days: 7
-          exclude-patterns: |
-            **/KICS/**
-            **/node_modules/**
-            **/.git/**
